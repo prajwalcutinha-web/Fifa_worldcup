@@ -144,9 +144,10 @@ router.get("/google/callback", async (req, res, next) => {
     });
     const p = profileRes.data; // { sub, email, name, picture, ... }
 
-    // Upsert user: match by googleId, else by email, else create.
+    // Upsert user: match by googleId, else by email, else create (signup).
     let user =
       (await store.users.findByGoogleId(p.sub)) || (await store.users.findByEmail(p.email));
+    let isNewSignup = false;
     if (user) {
       user = await store.users.update(user.id, {
         googleId: p.sub,
@@ -154,6 +155,7 @@ router.get("/google/callback", async (req, res, next) => {
         lastLogin: new Date(),
       });
     } else {
+      isNewSignup = true;
       user = await store.users.create({
         googleId: p.sub,
         email: String(p.email).toLowerCase(),
@@ -164,7 +166,8 @@ router.get("/google/callback", async (req, res, next) => {
     }
 
     setAuthCookie(res, signToken(user));
-    res.redirect(config.frontendUrl);
+    // Signal a fresh signup so the app can show onboarding/welcome.
+    res.redirect(`${config.frontendUrl}/?signin=google${isNewSignup ? "&welcome=1" : ""}`);
   } catch (err) {
     console.error("[google-oauth]", err.response?.data ?? err.message);
     res.redirect(`${config.frontendUrl}/?auth_error=oauth_failed`);

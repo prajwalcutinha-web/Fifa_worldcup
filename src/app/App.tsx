@@ -33,7 +33,14 @@ export default function App() {
     api
       .me()
       .then(({ user }) => {
-        if (active) setUser(user);
+        if (active) {
+          setUser(user);
+          // Clean OAuth redirect params (?signin=google&welcome=1) from the URL.
+          const params = new URLSearchParams(window.location.search);
+          if (params.has("signin") || params.has("welcome")) {
+            window.history.replaceState({}, "", window.location.pathname);
+          }
+        }
       })
       .catch(() => {
         /* not signed in */
