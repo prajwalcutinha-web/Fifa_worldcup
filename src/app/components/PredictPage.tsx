@@ -9,16 +9,6 @@ interface PredictPageProps {
   onNavigate: (page: Page) => void;
 }
 
-const PLAYERS = [
-  { name: "Lionel Messi", team: "ARG", pos: "FW", pct: 32, flag: "🇦🇷" },
-  { name: "Kylian Mbappé", team: "FRA", pos: "FW", pct: 28, flag: "🇫🇷" },
-  { name: "Antoine Griezmann", team: "FRA", pos: "FW", pct: 12, flag: "🇫🇷" },
-  { name: "Ángel Di María", team: "ARG", pos: "MF", pct: 8, flag: "🇦🇷" },
-  { name: "Olivier Giroud", team: "FRA", pos: "FW", pct: 6, flag: "🇫🇷" },
-  { name: "Lautaro Martínez", team: "ARG", pos: "FW", pct: 5, flag: "🇦🇷" },
-  { name: "Julián Álvarez", team: "ARG", pos: "FW", pct: 4, flag: "🇦🇷" },
-];
-
 type SubmitState = "idle" | "loading" | "success";
 
 export function PredictPage({ onNavigate }: PredictPageProps) {
@@ -55,10 +45,6 @@ export function PredictPage({ onNavigate }: PredictPageProps) {
 
   const basePts = 14;
   const totalPts = doublePoints ? basePts * 2 : basePts;
-
-  const filteredPlayers = PLAYERS.filter(
-    (p) => !playerSearch || p.name.toLowerCase().includes(playerSearch.toLowerCase()) || p.team.toLowerCase().includes(playerSearch.toLowerCase())
-  );
 
   const handleSubmit = async () => {
     if (!firstTeam || !selectedPlayer) return;
@@ -213,59 +199,19 @@ export function PredictPage({ onNavigate }: PredictPageProps) {
           <p style={{ fontSize: 11, color: "#6B6B80", fontFamily: "Inter, sans-serif", fontWeight: 700, textTransform: "uppercase", letterSpacing: 1, marginBottom: 16 }}>
             First Player to Score
           </p>
-          <div className="relative mb-4">
+          <div className="relative">
             <Search size={15} className="absolute left-3 top-1/2 -translate-y-1/2" color="#6B6B80" />
             <input
               value={playerSearch}
-              onChange={(e) => setPlayerSearch(e.target.value)}
-              onFocus={() => setSearchOpen(true)}
-              onBlur={() => setTimeout(() => setSearchOpen(false), 150)}
-              placeholder="Search player name..."
+              onChange={(e) => { setPlayerSearch(e.target.value); setSelectedPlayer(e.target.value.trim() || null); }}
+              placeholder="Type the player's name..."
               className="w-full rounded-xl pl-9 pr-4 py-2.5 outline-none"
               style={{ background: "#252540", border: "1px solid #2A2A4E", color: "#fff", fontSize: 14, fontFamily: "Inter, sans-serif" }}
             />
           </div>
-          <AnimatePresence>
-            {searchOpen && (
-              <motion.div initial={{ opacity: 0, y: -5 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -5 }}
-                className="rounded-xl overflow-hidden mb-4" style={{ border: "1px solid #2A2A4E", background: "#252540" }}>
-                {filteredPlayers.map((p) => (
-                  <button key={p.name} onMouseDown={() => { setSelectedPlayer(p.name); setPlayerSearch(p.name); }}
-                    className="w-full flex items-center gap-3 px-3 py-2.5 hover:bg-white/5 transition-colors text-left">
-                    <span style={{ fontSize: 18 }}>{p.flag}</span>
-                    <div className="flex-1">
-                      <p style={{ fontSize: 14, fontWeight: 600, color: "#fff", fontFamily: "Inter, sans-serif" }}>{p.name}</p>
-                      <p style={{ fontSize: 11, color: "#6B6B80", fontFamily: "Inter, sans-serif" }}>{p.team} · {p.pos}</p>
-                    </div>
-                    <div className="text-right">
-                      <p style={{ fontSize: 11, color: "#A0A0B0", fontFamily: "Inter, sans-serif" }}>{p.pct}% pick</p>
-                      <div className="h-1 w-16 rounded-full mt-1" style={{ background: "#2A2A4E" }}>
-                        <div className="h-full rounded-full" style={{ width: `${p.pct}%`, background: "#00B2A9" }} />
-                      </div>
-                    </div>
-                  </button>
-                ))}
-              </motion.div>
-            )}
-          </AnimatePresence>
-          <div>
-            <p style={{ fontSize: 12, color: "#6B6B80", fontFamily: "Inter, sans-serif", marginBottom: 8 }}>Popular picks:</p>
-            <div className="flex flex-wrap gap-2">
-              {PLAYERS.slice(0, 4).map((p) => (
-                <button key={p.name}
-                  onClick={() => { setSelectedPlayer(p.name); setPlayerSearch(p.name); }}
-                  className="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium transition-all"
-                  style={{
-                    background: selectedPlayer === p.name ? "rgba(0,178,169,0.2)" : "#252540",
-                    border: selectedPlayer === p.name ? "1px solid #00B2A9" : "1px solid #2A2A4E",
-                    color: selectedPlayer === p.name ? "#00B2A9" : "#A0A0B0",
-                    fontFamily: "Inter, sans-serif",
-                  }}>
-                  {p.flag} {p.name.split(" ").pop()} <span style={{ color: "#6B6B80" }}>({p.pct}%)</span>
-                </button>
-              ))}
-            </div>
-          </div>
+          <p style={{ fontSize: 11, color: "#6B6B80", fontFamily: "Inter, sans-serif", marginTop: 8 }}>
+            Enter the name of the player you think scores first.
+          </p>
         </motion.div>
 
         {/* Double Points */}

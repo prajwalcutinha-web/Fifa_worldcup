@@ -116,7 +116,6 @@ app.listen(config.port, () => {
   console.log(`WC26 API listening on http://localhost:${config.port} (${config.isProd ? "prod" : "dev"})`);
   console.log(`Allowed origins: ${config.corsOrigins.join(", ")}`);
   console.log(
-    `Google OAuth: ${config.google.clientId ? "enabled" : "disabled"} | ` +
-      `Live scores: TheSportsDB (key ${config.liveScores.sportsDbKey})`
+    `Live data: TheSportsDB World Cup (league ${config.worldcup.leagueId}, season ${config.worldcup.season})`
   );
 });

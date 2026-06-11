@@ -10,21 +10,6 @@ interface DashboardProps {
   onNavigate: (page: Page) => void;
 }
 
-const UPCOMING_MATCHES = [
-  { id: 1, home: "🇦🇷", homeCode: "ARG", away: "🇫🇷", awayCode: "FRA", time: "Jun 14 • 18:00", stadium: "MetLife Stadium", group: "Group A", predicted: true, score: "2-1" },
-  { id: 2, home: "🇧🇷", homeCode: "BRA", away: "🇩🇪", awayCode: "GER", time: "Jun 15 • 15:00", stadium: "AT&T Stadium", group: "Group D", predicted: false, score: "" },
-  { id: 3, home: "🇪🇸", homeCode: "ESP", away: "🇯🇵", awayCode: "JPN", time: "Jun 15 • 21:00", stadium: "SoFi Stadium", group: "Group B", predicted: false, score: "" },
-  { id: 4, home: "🏴󠁧󠁢󠁥󠁮󠁧󠁿", homeCode: "ENG", away: "🇵🇹", awayCode: "POR", time: "Jun 16 • 18:00", stadium: "Rose Bowl", group: "Group C", predicted: false, score: "" },
-];
-
-const LEADERBOARD_MINI = [
-  { rank: 1, name: "John D.", pts: 142, change: 2, isMe: false, avatar: "John" },
-  { rank: 2, name: "Sarah M.", pts: 138, change: -1, isMe: false, avatar: "Sarah" },
-  { rank: 3, name: "Alex K.", pts: 135, change: 5, isMe: false, avatar: "Alex" },
-  { rank: 4, name: "You", pts: 131, change: 1, isMe: true, avatar: "Me" },
-  { rank: 5, name: "Mike R.", pts: 128, change: -3, isMe: false, avatar: "Mike" },
-];
-
 function useCountUp(target: number, duration = 1200) {
   const [value, setValue] = useState(0);
   useEffect(() => {
@@ -87,8 +72,8 @@ export function Dashboard({ user, onNavigate }: DashboardProps) {
   const [analytics, setAnalytics] = useState<any>(null);
   const [rank, setRank] = useState<number | null>(null);
   const [rankMovement, setRankMovement] = useState(0);
-  const [miniBoard, setMiniBoard] = useState(LEADERBOARD_MINI);
-  const [upcoming, setUpcoming] = useState(UPCOMING_MATCHES);
+  const [miniBoard, setMiniBoard] = useState<any[]>([]);
+  const [upcoming, setUpcoming] = useState<any[]>([]);
 
   useEffect(() => {
     api.analytics().then(setAnalytics).catch(() => {});
@@ -119,8 +104,8 @@ export function Dashboard({ user, onNavigate }: DashboardProps) {
       .catch(() => {});
   }, []);
 
-  const totalPtsTarget = analytics ? analytics.totalPoints : 131;
-  const accuracy = analytics ? analytics.accuracy : 67;
+  const totalPtsTarget = analytics ? analytics.totalPoints : 0;
+  const accuracy = analytics ? analytics.accuracy : 0;
   const totalPts = useCountUp(totalPtsTarget);
   const matchdayPts = useCountUp(14, 800);
   const deadline = new Date(Date.now() + 2 * 3600000 + 14 * 60000 + 37000);
@@ -260,6 +245,11 @@ export function Dashboard({ user, onNavigate }: DashboardProps) {
                 </button>
               </div>
               <div className="flex flex-col gap-3">
+                {upcoming.length === 0 && (
+                  <p style={{ fontSize: 13, color: "#6B6B80", fontFamily: "Inter, sans-serif", padding: "8px 0" }}>
+                    No upcoming matches to predict right now.
+                  </p>
+                )}
                 {upcoming.map((m, i) => (
                   <motion.div
                     key={m.id}
@@ -309,45 +299,6 @@ export function Dashboard({ user, onNavigate }: DashboardProps) {
                 ))}
               </div>
             </motion.div>
-
-            {/* Live match */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.4 }}
-              className="rounded-xl p-4 live-pulse"
-              style={{ background: "#1A1A2E", border: "1px solid #E4002B" }}
-            >
-              <div className="flex items-center justify-between mb-3">
-                <div className="flex items-center gap-2">
-                  <motion.span
-                    animate={{ opacity: [1, 0.3, 1] }}
-                    transition={{ duration: 1.5, repeat: Infinity }}
-                    className="w-2 h-2 rounded-full inline-block"
-                    style={{ background: "#E4002B" }}
-                  />
-                  <span style={{ fontSize: 12, fontWeight: 700, color: "#E4002B", fontFamily: "Inter, sans-serif", textTransform: "uppercase", letterSpacing: 1 }}>
-                    Live
-                  </span>
-                  <span style={{ fontSize: 12, color: "#E4002B", fontFamily: "Inter, sans-serif" }}>67'</span>
-                </div>
-                <span style={{ fontSize: 11, color: "#6B6B80", fontFamily: "Inter, sans-serif" }}>Group E · Matchday 2</span>
-              </div>
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-2">
-                  <span style={{ fontSize: 28 }}>🇺🇸</span>
-                  <span style={{ fontFamily: "Montserrat, sans-serif", fontSize: 15, fontWeight: 700, color: "#fff" }}>USA</span>
-                </div>
-                <div className="text-center">
-                  <span className="font-score" style={{ fontFamily: "Orbitron, monospace", fontSize: 28, fontWeight: 700, color: "#E4002B" }}>
-                    1 - 0
-                  </span>
-                  <p style={{ fontSize: 11, color: "#6B6B80", fontFamily: "Inter, sans-serif" }}>Your pick: 2-1</p>
-                </div>
-                <div className="flex items-center gap-2">
-                  <span style={{ fontFamily: "Montserrat, sans-serif", fontSize: 15, fontWeight: 700, color: "#fff" }}>MEX</span>
-                  <span style={{ fontSize: 28 }}>🇲🇽</span>
-                </div>
-              </div>
-            </motion.div>
           </div>
 
           {/* RIGHT COLUMN */}
@@ -366,6 +317,11 @@ export function Dashboard({ user, onNavigate }: DashboardProps) {
                   style={{ fontSize: 11, color: "#00B2A9", fontFamily: "Inter, sans-serif" }}>See all</button>
               </div>
               <div className="flex flex-col gap-1">
+                {miniBoard.length === 0 && (
+                  <p style={{ fontSize: 12, color: "#6B6B80", fontFamily: "Inter, sans-serif", padding: "4px 0" }}>
+                    No rankings yet.
+                  </p>
+                )}
                 {miniBoard.map((entry) => (
                   <div
                     key={entry.rank}
@@ -401,35 +357,6 @@ export function Dashboard({ user, onNavigate }: DashboardProps) {
                       }}>
                         {entry.change > 0 ? `↑${entry.change}` : entry.change < 0 ? `↓${Math.abs(entry.change)}` : "—"}
                       </span>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </motion.div>
-
-            {/* Activity feed */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.35 }}
-              className="rounded-2xl p-4" style={{ background: "#1A1A2E", border: "1px solid #2A2A4E" }}
-            >
-              <p style={{ fontSize: 13, fontWeight: 700, color: "#fff", fontFamily: "Montserrat, sans-serif", marginBottom: 12 }}>
-                🔔 Activity
-              </p>
-              <div className="flex flex-col gap-3">
-                {[
-                  { icon: "🎯", text: "You scored +14 pts on ARG vs FRA", time: "2h ago", color: "#00B2A9" },
-                  { icon: "📈", text: "You moved up 3 places to #47", time: "4h ago", color: "#006847" },
-                  { icon: "⭐", text: "Matchday 3 Double Points unlocked", time: "1d ago", color: "#FFD700" },
-                  { icon: "🏆", text: "Matchday 2 results are live!", time: "1d ago", color: "#002868" },
-                ].map((n, i) => (
-                  <div key={i} className="flex items-start gap-3">
-                    <div className="w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0"
-                      style={{ background: `${n.color}20` }}>
-                      <span style={{ fontSize: 14 }}>{n.icon}</span>
-                    </div>
-                    <div className="flex-1 min-w-0">
-                      <p style={{ fontSize: 12, color: "#fff", fontFamily: "Inter, sans-serif", lineHeight: 1.4 }}>{n.text}</p>
-                      <p style={{ fontSize: 10, color: "#6B6B80", fontFamily: "Inter, sans-serif", marginTop: 2 }}>{n.time}</p>
                     </div>
                   </div>
                 ))}

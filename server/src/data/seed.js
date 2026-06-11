@@ -1,45 +1,45 @@
-// Seed / fallback data for the WC26 Predictor League.
-// Used when the live scraper is unavailable so the app always has content.
-// Shape matches what the React frontend expects for a Match.
+// Country -> flag emoji + 3-letter code helpers for real fixture data.
+// No dummy fixtures or fake leaderboard members here — all match data comes
+// from the live World Cup feed (TheSportsDB), and the leaderboard is built
+// only from real registered users.
 
-export const TEAMS = {
-  ARG: { name: "Argentina", flag: "🇦🇷" },
-  FRA: { name: "France", flag: "🇫🇷" },
-  BRA: { name: "Brazil", flag: "🇧🇷" },
-  GER: { name: "Germany", flag: "🇩🇪" },
-  ESP: { name: "Spain", flag: "🇪🇸" },
-  JPN: { name: "Japan", flag: "🇯🇵" },
-  ENG: { name: "England", flag: "🏴󠁧󠁢󠁥󠁮󠁧󠁿" },
-  POR: { name: "Portugal", flag: "🇵🇹" },
-  USA: { name: "USA", flag: "🇺🇸" },
-  MEX: { name: "Mexico", flag: "🇲🇽" },
-  CAN: { name: "Canada", flag: "🇨🇦" },
-  MAR: { name: "Morocco", flag: "🇲🇦" },
-  NED: { name: "Netherlands", flag: "🇳🇱" },
-  SEN: { name: "Senegal", flag: "🇸🇳" },
-  AUS: { name: "Australia", flag: "🇦🇺" },
-  KSA: { name: "Saudi Arabia", flag: "🇸🇦" },
-  GHA: { name: "Ghana", flag: "🇬🇭" },
+const COUNTRY = {
+  Argentina: ["ARG", "🇦🇷"], France: ["FRA", "🇫🇷"], Brazil: ["BRA", "🇧🇷"],
+  Germany: ["GER", "🇩🇪"], Spain: ["ESP", "🇪🇸"], Japan: ["JPN", "🇯🇵"],
+  England: ["ENG", "🏴󠁧󠁢󠁥󠁮󠁧󠁿"], Portugal: ["POR", "🇵🇹"], USA: ["USA", "🇺🇸"],
+  "United States": ["USA", "🇺🇸"], Mexico: ["MEX", "🇲🇽"], Canada: ["CAN", "🇨🇦"],
+  Morocco: ["MAR", "🇲🇦"], Netherlands: ["NED", "🇳🇱"], Senegal: ["SEN", "🇸🇳"],
+  Australia: ["AUS", "🇦🇺"], "Saudi Arabia": ["KSA", "🇸🇦"], Ghana: ["GHA", "🇬🇭"],
+  Belgium: ["BEL", "🇧🇪"], Croatia: ["CRO", "🇭🇷"], Italy: ["ITA", "🇮🇹"],
+  Uruguay: ["URU", "🇺🇾"], Colombia: ["COL", "🇨🇴"], Switzerland: ["SUI", "🇨🇭"],
+  Denmark: ["DEN", "🇩🇰"], Poland: ["POL", "🇵🇱"], "South Korea": ["KOR", "🇰🇷"],
+  "Korea Republic": ["KOR", "🇰🇷"], Serbia: ["SRB", "🇷🇸"], "Czech Republic": ["CZE", "🇨🇿"],
+  Czechia: ["CZE", "🇨🇿"], "South Africa": ["RSA", "🇿🇦"], "Bosnia-Herzegovina": ["BIH", "🇧🇦"],
+  "Bosnia and Herzegovina": ["BIH", "🇧🇦"], Iran: ["IRN", "🇮🇷"], Qatar: ["QAT", "🇶🇦"],
+  Ecuador: ["ECU", "🇪🇨"], "Costa Rica": ["CRC", "🇨🇷"], Tunisia: ["TUN", "🇹🇳"],
+  Cameroon: ["CMR", "🇨🇲"], Nigeria: ["NGA", "🇳🇬"], Egypt: ["EGY", "🇪🇬"],
+  Algeria: ["ALG", "🇩🇿"], "Ivory Coast": ["CIV", "🇨🇮"], Wales: ["WAL", "🏴󠁧󠁢󠁷󠁬󠁳󠁿"],
+  Scotland: ["SCO", "🏴󠁧󠁢󠁳󠁣󠁴󠁿"], Austria: ["AUT", "🇦🇹"], Sweden: ["SWE", "🇸🇪"],
+  Norway: ["NOR", "🇳🇴"], Turkey: ["TUR", "🇹🇷"], "Turkiye": ["TUR", "🇹🇷"],
+  Ukraine: ["UKR", "🇺🇦"], Greece: ["GRE", "🇬🇷"], Peru: ["PER", "🇵🇪"],
+  Chile: ["CHI", "🇨🇱"], Paraguay: ["PAR", "🇵🇾"], "New Zealand": ["NZL", "🇳🇿"],
+  Jordan: ["JOR", "🇯🇴"], Uzbekistan: ["UZB", "🇺🇿"], Jamaica: ["JAM", "🇯🇲"],
+  Panama: ["PAN", "🇵🇦"], Honduras: ["HON", "🇭🇳"], Mali: ["MLI", "🇲🇱"],
+  "Cape Verde": ["CPV", "🇨🇻"], "DR Congo": ["COD", "🇨🇩"], Slovenia: ["SVN", "🇸🇮"],
+  Slovakia: ["SVK", "🇸🇰"], Hungary: ["HUN", "🇭🇺"], Romania: ["ROU", "🇷🇴"],
 };
 
-export const FALLBACK_FIXTURES = [
-  { id: 1, home: "Argentina", homeCode: "ARG", homeFlag: "🇦🇷", away: "France", awayCode: "FRA", awayFlag: "🇫🇷", time: "18:00", date: "Jun 14", stadium: "MetLife Stadium", city: "New Jersey", group: "Group A", matchday: 1, state: "live", score: "1-1", minute: 67, kickoff: "2026-06-14T18:00:00Z" },
-  { id: 2, home: "Brazil", homeCode: "BRA", homeFlag: "🇧🇷", away: "Germany", awayCode: "GER", awayFlag: "🇩🇪", time: "15:00", date: "Jun 15", stadium: "AT&T Stadium", city: "Dallas", group: "Group D", matchday: 1, state: "upcoming", kickoff: "2026-06-15T15:00:00Z" },
-  { id: 3, home: "Spain", homeCode: "ESP", homeFlag: "🇪🇸", away: "Japan", awayCode: "JPN", awayFlag: "🇯🇵", time: "21:00", date: "Jun 15", stadium: "SoFi Stadium", city: "Los Angeles", group: "Group B", matchday: 1, state: "upcoming", kickoff: "2026-06-15T21:00:00Z" },
-  { id: 4, home: "England", homeCode: "ENG", homeFlag: "🏴󠁧󠁢󠁥󠁮󠁧󠁿", away: "Portugal", awayCode: "POR", awayFlag: "🇵🇹", time: "18:00", date: "Jun 16", stadium: "Rose Bowl", city: "Los Angeles", group: "Group C", matchday: 1, state: "upcoming", kickoff: "2026-06-16T18:00:00Z" },
-  { id: 5, home: "USA", homeCode: "USA", homeFlag: "🇺🇸", away: "Mexico", awayCode: "MEX", awayFlag: "🇲🇽", time: "20:00", date: "Jun 16", stadium: "Estadio Azteca", city: "Mexico City", group: "Group E", matchday: 1, state: "upcoming", kickoff: "2026-06-16T20:00:00Z" },
-  { id: 6, home: "Canada", homeCode: "CAN", homeFlag: "🇨🇦", away: "Morocco", awayCode: "MAR", awayFlag: "🇲🇦", time: "18:00", date: "Jun 17", stadium: "BC Place", city: "Vancouver", group: "Group F", matchday: 1, state: "upcoming", kickoff: "2026-06-17T18:00:00Z" },
-  { id: 7, home: "Netherlands", homeCode: "NED", homeFlag: "🇳🇱", away: "Senegal", awayCode: "SEN", awayFlag: "🇸🇳", time: "15:00", date: "Jun 17", stadium: "Gillette Stadium", city: "Boston", group: "Group G", matchday: 1, state: "upcoming", kickoff: "2026-06-17T15:00:00Z" },
-  { id: 8, home: "Australia", homeCode: "AUS", homeFlag: "🇦🇺", away: "Saudi Arabia", awayCode: "KSA", awayFlag: "🇸🇦", time: "15:00", date: "Jun 12", stadium: "Levi's Stadium", city: "San Francisco", group: "Group H", matchday: 1, state: "finished", score: "2-0", kickoff: "2026-06-12T15:00:00Z" },
-  { id: 9, home: "Portugal", homeCode: "POR", homeFlag: "🇵🇹", away: "Ghana", awayCode: "GHA", awayFlag: "🇬🇭", time: "21:00", date: "Jun 12", stadium: "Hard Rock Stadium", city: "Miami", group: "Group C", matchday: 1, state: "finished", score: "3-2", kickoff: "2026-06-12T21:00:00Z" },
-];
+export function teamCode(name) {
+  const c = COUNTRY[name];
+  if (c) return c[0];
+  return String(name ?? "")
+    .replace(/[^A-Za-z ]/g, "")
+    .split(" ")[0]
+    .slice(0, 3)
+    .toUpperCase();
+}
 
-// A handful of demo league members so the leaderboard is populated before
-// real users sign up. Real users are appended dynamically.
-export const SEED_LEADERBOARD = [
-  { id: "seed-1", name: "John D.", avatar: "", points: 142, lastRank: 3 },
-  { id: "seed-2", name: "Sarah M.", avatar: "", points: 138, lastRank: 1 },
-  { id: "seed-3", name: "Alex K.", avatar: "", points: 135, lastRank: 8 },
-  { id: "seed-4", name: "Mike R.", avatar: "", points: 128, lastRank: 2 },
-  { id: "seed-5", name: "Lisa T.", avatar: "", points: 125, lastRank: 6 },
-];
+export function teamFlag(name) {
+  const c = COUNTRY[name];
+  return c ? c[1] : "⚽";
+}

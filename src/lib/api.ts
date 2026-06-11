@@ -69,9 +69,6 @@ export const api = {
     request<{ user: User }>("/auth/login", { method: "POST", body: JSON.stringify(body) }),
   logout: () => request<{ ok: boolean }>("/auth/logout", { method: "POST" }),
   me: () => request<{ user: User }>("/auth/me"),
-  authConfig: () => request<{ google: boolean }>("/auth/config"),
-  // Full-page redirect to begin the Google OAuth flow.
-  googleLoginUrl: () => `${BASE}/auth/google`,
 
   // --- Fixtures (scraped live data) ---
   fixtures: (refresh = false) =>

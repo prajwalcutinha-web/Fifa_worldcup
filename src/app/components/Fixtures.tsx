@@ -24,18 +24,6 @@ interface Match {
   minute?: number;
 }
 
-const MATCHES: Match[] = [
-  { id: 1, home: "Argentina", homeCode: "ARG", homeFlag: "🇦🇷", away: "France", awayCode: "FRA", awayFlag: "🇫🇷", time: "18:00", date: "Jun 14", stadium: "MetLife Stadium", city: "New Jersey", group: "Group A", matchday: 1, state: "live", prediction: "2-1", score: "1-1", minute: 67 },
-  { id: 2, home: "Brazil", homeCode: "BRA", homeFlag: "🇧🇷", away: "Germany", awayCode: "GER", awayFlag: "🇩🇪", time: "15:00", date: "Jun 15", stadium: "AT&T Stadium", city: "Dallas", group: "Group D", matchday: 1, state: "predicted", prediction: "1-0" },
-  { id: 3, home: "Spain", homeCode: "ESP", homeFlag: "🇪🇸", away: "Japan", awayCode: "JPN", awayFlag: "🇯🇵", time: "21:00", date: "Jun 15", stadium: "SoFi Stadium", city: "Los Angeles", group: "Group B", matchday: 1, state: "double", prediction: "3-1" },
-  { id: 4, home: "England", homeCode: "ENG", homeFlag: "🏴󠁧󠁢󠁥󠁮󠁧󠁿", away: "Portugal", awayCode: "POR", awayFlag: "🇵🇹", time: "18:00", date: "Jun 16", stadium: "Rose Bowl", city: "Los Angeles", group: "Group C", matchday: 1, state: "no-prediction" },
-  { id: 5, home: "USA", homeCode: "USA", homeFlag: "🇺🇸", away: "Mexico", awayCode: "MEX", awayFlag: "🇲🇽", time: "20:00", date: "Jun 16", stadium: "Estadio Azteca", city: "Mexico City", group: "Group E", matchday: 1, state: "no-prediction" },
-  { id: 6, home: "Canada", homeCode: "CAN", homeFlag: "🇨🇦", away: "Morocco", awayCode: "MAR", awayFlag: "🇲🇦", time: "18:00", date: "Jun 17", stadium: "BC Place", city: "Vancouver", group: "Group F", matchday: 1, state: "no-prediction" },
-  { id: 7, home: "Netherlands", homeCode: "NED", homeFlag: "🇳🇱", away: "Senegal", awayCode: "SEN", awayFlag: "🇸🇳", time: "15:00", date: "Jun 17", stadium: "Gillette Stadium", city: "Boston", group: "Group G", matchday: 1, state: "locked" },
-  { id: 8, home: "Australia", homeCode: "AUS", homeFlag: "🇦🇺", away: "Saudi Arabia", awayCode: "KSA", awayFlag: "🇸🇦", time: "15:00", date: "Jun 12", stadium: "Levi's Stadium", city: "San Francisco", group: "Group H", matchday: 1, state: "finished", score: "2-0", pts: 14 },
-  { id: 9, home: "Portugal", homeCode: "POR", homeFlag: "🇵🇹", away: "Ghana", awayCode: "GHA", awayFlag: "🇬🇭", time: "21:00", date: "Jun 12", stadium: "Hard Rock Stadium", city: "Miami", group: "Group C", matchday: 1, state: "finished", score: "3-2", pts: 3 },
-];
-
 const STATE_CONFIGS: Record<MatchState, { label: string; color: string; bg: string; borderStyle: string }> = {
   "no-prediction": { label: "Predict Now →", color: "#00B2A9", bg: "rgba(0,178,169,0.1)", borderStyle: "1px dashed #2A2A4E" },
   "predicted": { label: "✓ Predicted", color: "#00B2A9", bg: "rgba(0,178,169,0.1)", borderStyle: "1px solid #00B2A9" },
@@ -49,7 +37,7 @@ export function Fixtures({ onNavigate }: FixturesProps) {
   const [filter, setFilter] = useState<"all" | "upcoming" | "live" | "finished">("all");
   const [search, setSearch] = useState("");
   const [expanded, setExpanded] = useState<number | null>(null);
-  const [matches, setMatches] = useState<Match[]>(MATCHES);
+  const [matches, setMatches] = useState<Match[]>([]);
   const [loading, setLoading] = useState(true);
   const [source, setSource] = useState<string>("");
 
@@ -57,7 +45,6 @@ export function Fixtures({ onNavigate }: FixturesProps) {
     setLoading(true);
     try {
       const { fixtures, source } = await api.fixtures(refresh);
-      // Map the API shape to the component's MatchState model.
       const mapped: Match[] = fixtures.map((m: ApiMatch) => ({
         ...m,
         state: (m.state === "upcoming" ? "no-prediction" : m.state) as MatchState,
@@ -65,7 +52,7 @@ export function Fixtures({ onNavigate }: FixturesProps) {
       setMatches(mapped);
       setSource(source);
     } catch {
-      // Keep the seed MATCHES already in state so the UI still renders.
+      setMatches([]);
       setSource("offline");
     } finally {
       setLoading(false);
@@ -149,6 +136,15 @@ export function Fixtures({ onNavigate }: FixturesProps) {
         </motion.div>
 
         <div className="flex flex-col gap-3">
+          {!loading && filtered.length === 0 && (
+            <div className="rounded-2xl p-8 text-center" style={{ background: "#1A1A2E", border: "1px solid #2A2A4E" }}>
+              <div style={{ fontSize: 40, marginBottom: 8 }}>⚽</div>
+              <p style={{ color: "#fff", fontFamily: "Montserrat, sans-serif", fontWeight: 700, fontSize: 16 }}>No matches to show yet</p>
+              <p style={{ color: "#6B6B80", fontFamily: "Inter, sans-serif", fontSize: 13, marginTop: 4 }}>
+                Live fixtures appear here as the World Cup schedule updates.
+              </p>
+            </div>
+          )}
           {filtered.map((m, i) => {
             const cfg = STATE_CONFIGS[m.state];
             const isExpanded = expanded === m.id;

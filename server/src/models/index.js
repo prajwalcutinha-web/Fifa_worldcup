@@ -55,3 +55,26 @@ const leagueSchema = new Schema(
 export const User = mongoose.models.User || model("User", userSchema);
 export const Prediction = mongoose.models.Prediction || model("Prediction", predictionSchema);
 export const League = mongoose.models.League || model("League", leagueSchema);
+
+// ---- fixtures (synced from the live results feed by the cron) ----
+const fixtureSchema = new Schema(
+  {
+    // Stable numeric id derived from the team pairing (so predictions can
+    // reference a match consistently across syncs).
+    id: { type: Number, required: true, unique: true, index: true },
+    key: { type: String, required: true, unique: true },
+    home: String, homeCode: String, homeFlag: String,
+    away: String, awayCode: String, awayFlag: String,
+    time: String, date: String, stadium: String, city: String,
+    group: String, matchday: { type: Number, default: 1 },
+    state: { type: String, default: "upcoming" }, // upcoming|live|finished
+    score: { type: String, default: null },
+    minute: { type: Number, default: null },
+    statusText: { type: String, default: "" },
+    kickoff: { type: String, default: null },
+    source: { type: String, default: "" },
+  },
+  { timestamps: true }
+);
+
+export const Fixture = mongoose.models.Fixture || model("Fixture", fixtureSchema);

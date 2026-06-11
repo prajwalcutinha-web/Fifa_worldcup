@@ -5,23 +5,19 @@ import { api } from "../../lib/api";
 
 type LeaderboardTab = "overall" | "matchday" | "weekly";
 
-const LEADERBOARD_DATA = [
-  { rank: 1, name: "John Davidson", pts: 142, change: 2, score: 12, team: 18, player: 9, double: 3, accuracy: 75, avatar: "John" },
-  { rank: 2, name: "Sarah Mitchell", pts: 138, change: -1, score: 10, team: 17, player: 8, double: 2, accuracy: 72, avatar: "Sarah" },
-  { rank: 3, name: "Alex Kumar", pts: 135, change: 5, score: 11, team: 16, player: 7, double: 3, accuracy: 71, avatar: "Alex" },
-  { rank: 4, name: "You", pts: 131, change: 1, score: 9, team: 15, player: 9, double: 2, accuracy: 67, avatar: "Me", isMe: true },
-  { rank: 5, name: "Mike Rodriguez", pts: 128, change: -3, score: 10, team: 14, player: 6, double: 2, accuracy: 65, avatar: "Mike" },
-  { rank: 6, name: "Lisa Thompson", pts: 125, change: 0, score: 8, team: 14, player: 7, double: 1, accuracy: 64, avatar: "Lisa" },
-  { rank: 7, name: "James Park", pts: 122, change: 4, score: 9, team: 13, player: 5, double: 2, accuracy: 62, avatar: "James" },
-  { rank: 8, name: "Emma Chen", pts: 118, change: -2, score: 8, team: 12, player: 6, double: 1, accuracy: 60, avatar: "Emma" },
-  { rank: 9, name: "Carlos Rivera", pts: 114, change: 1, score: 7, team: 12, player: 5, double: 2, accuracy: 58, avatar: "Carlos" },
-  { rank: 10, name: "Priya Sharma", pts: 110, change: -1, score: 7, team: 11, player: 4, double: 1, accuracy: 56, avatar: "Priya" },
-];
-
-const MATCHDAY_DATA = LEADERBOARD_DATA.map((e) => ({ ...e, pts: Math.floor(e.pts / 5 + Math.random() * 5) }))
-  .sort((a, b) => b.pts - a.pts).map((e, i) => ({ ...e, rank: i + 1 }));
-
-type EntryType = typeof LEADERBOARD_DATA[0] & { isMe?: boolean };
+interface EntryType {
+  rank: number;
+  name: string;
+  pts: number;
+  change: number;
+  score: number;
+  team: number;
+  player: number;
+  double: number;
+  accuracy: number;
+  avatar: string;
+  isMe?: boolean;
+}
 
 function PodiumCard({ entry, pos }: { entry: EntryType; pos: 1 | 2 | 3 }) {
   const heights = { 1: 100, 2: 80, 3: 64 };
@@ -56,7 +52,7 @@ function PodiumCard({ entry, pos }: { entry: EntryType; pos: 1 | 2 | 3 }) {
 export function Leaderboard() {
   const [tab, setTab] = useState<LeaderboardTab>("overall");
   const [expanded, setExpanded] = useState<number | null>(null);
-  const [overall, setOverall] = useState<EntryType[]>(LEADERBOARD_DATA);
+  const [overall, setOverall] = useState<EntryType[]>([]);
 
   useEffect(() => {
     api
@@ -117,6 +113,7 @@ export function Leaderboard() {
         </motion.div>
 
         {/* Podium */}
+        {data.length >= 3 && (
         <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.1 }}
           className="rounded-2xl p-6 mb-6" style={{ background: "#1A1A2E", border: "1px solid #2A2A4E" }}>
           <p style={{ fontSize: 11, color: "#6B6B80", fontFamily: "Inter, sans-serif", fontWeight: 700, textTransform: "uppercase", letterSpacing: 1, textAlign: "center", marginBottom: 20 }}>
@@ -128,6 +125,17 @@ export function Leaderboard() {
             ))}
           </div>
         </motion.div>
+        )}
+
+        {data.length === 0 && (
+          <div className="rounded-2xl p-8 text-center" style={{ background: "#1A1A2E", border: "1px solid #2A2A4E" }}>
+            <div style={{ fontSize: 40, marginBottom: 8 }}>🏆</div>
+            <p style={{ color: "#fff", fontFamily: "Montserrat, sans-serif", fontWeight: 700, fontSize: 16 }}>No rankings yet</p>
+            <p style={{ color: "#6B6B80", fontFamily: "Inter, sans-serif", fontSize: 13, marginTop: 4 }}>
+              Make predictions and earn points to climb the leaderboard.
+            </p>
+          </div>
+        )}
 
         {/* Full table */}
         <div className="flex flex-col gap-1">

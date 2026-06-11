@@ -6,31 +6,7 @@ import {
   Tooltip, ResponsiveContainer, PieChart, Pie, Cell
 } from "recharts";
 
-const POINTS_HISTORY = [
-  { matchday: "MD1", pts: 28, avg: 22 },
-  { matchday: "MD2", pts: 35, avg: 26 },
-  { matchday: "MD3", pts: 14, avg: 18 },
-  { matchday: "MD4", pts: 21, avg: 20 },
-  { matchday: "MD5", pts: 33, avg: 25 },
-];
-
-const ACCURACY_BREAKDOWN = [
-  { name: "Score", value: 42, color: "#00B2A9" },
-  { name: "1st Team", value: 78, color: "#002868" },
-  { name: "1st Player", value: 38, color: "#FFD700" },
-];
-
-const BEST_PREDICTIONS = [
-  { match: "ARG vs MEX", prediction: "2-0", result: "2-0", pts: 28, double: true, date: "Jun 12" },
-  { match: "ENG vs IRN", prediction: "6-2", result: "6-2", pts: 14, double: false, date: "Jun 13" },
-  { match: "ESP vs CRC", prediction: "7-0", result: "7-0", pts: 14, double: false, date: "Jun 14" },
-  { match: "BRA vs SRB", prediction: "2-0", result: "2-0", pts: 14, double: false, date: "Jun 15" },
-];
-
-const DONUT_DATA = [
-  { name: "Correct", value: 67, color: "#00B2A9" },
-  { name: "Wrong", value: 33, color: "#2A2A4E" },
-];
+const POINTS_HISTORY: any[] = [];
 
 const CustomTooltip = ({ active, payload, label }: any) => {
   if (!active || !payload) return null;
@@ -60,15 +36,15 @@ export function Analytics() {
       .catch(() => {});
   }, []);
 
-  // Real data with sensible fallbacks to the illustrative values.
-  const totalPoints = stats ? stats.totalPoints : 131;
-  const accuracy = stats ? stats.accuracy : 67;
-  const correct = stats ? stats.correct : 34;
-  const scored = stats ? stats.scoredPredictions : 51;
+  // Real data with empty/zero fallbacks (no dummy values).
+  const totalPoints = stats ? stats.totalPoints : 0;
+  const accuracy = stats ? stats.accuracy : 0;
+  const correct = stats ? stats.correct : 0;
+  const scored = stats ? stats.scoredPredictions : 0;
   const pointsHistory =
     stats && stats.pointsByMatchday?.length
       ? stats.pointsByMatchday.map((d: any) => ({ matchday: `MD${d.matchday}`, pts: d.points, avg: Math.round(d.points * 0.8) }))
-      : POINTS_HISTORY;
+      : [];
   const donut = [
     { name: "Correct", value: accuracy, color: "#00B2A9" },
     { name: "Wrong", value: 100 - accuracy, color: "#2A2A4E" },
@@ -163,62 +139,8 @@ export function Analytics() {
           </motion.div>
         </div>
 
-        {/* Category Breakdown */}
-        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.25 }}
-          className="rounded-2xl p-5 mb-4" style={{ background: "#1A1A2E", border: "1px solid #2A2A4E" }}>
-          <p style={{ fontSize: 13, fontWeight: 700, color: "#fff", fontFamily: "Montserrat, sans-serif", marginBottom: 16 }}>
-            Accuracy by Category
-          </p>
-          <div className="flex flex-col gap-4">
-            {ACCURACY_BREAKDOWN.map((cat) => (
-              <div key={cat.name}>
-                <div className="flex justify-between mb-1.5">
-                  <span style={{ fontSize: 13, color: "#A0A0B0", fontFamily: "Inter, sans-serif" }}>{cat.name}</span>
-                  <span style={{ fontSize: 13, fontWeight: 700, color: cat.color, fontFamily: "Space Mono, monospace" }}>{cat.value}%</span>
-                </div>
-                <div className="h-2 rounded-full" style={{ background: "#252540" }}>
-                  <motion.div
-                    initial={{ width: 0 }}
-                    animate={{ width: `${cat.value}%` }}
-                    transition={{ delay: 0.4, duration: 1, ease: "easeOut" }}
-                    className="h-full rounded-full"
-                    style={{ background: cat.color }}
-                  />
-                </div>
-              </div>
-            ))}
-          </div>
-        </motion.div>
-
-        {/* Best predictions */}
-        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3 }}
-          className="rounded-2xl p-5" style={{ background: "#1A1A2E", border: "1px solid #2A2A4E" }}>
-          <p style={{ fontSize: 13, fontWeight: 700, color: "#fff", fontFamily: "Montserrat, sans-serif", marginBottom: 16 }}>
-            ⭐ Best Predictions
-          </p>
-          <div className="flex flex-col gap-3">
-            {BEST_PREDICTIONS.map((p, i) => (
-              <div key={i} className="flex items-center gap-3 p-3 rounded-xl" style={{ background: "#252540" }}>
-                <span className="font-rank" style={{ fontFamily: "Space Mono, monospace", fontSize: 14, fontWeight: 700, color: "#FFD700", minWidth: 20 }}>
-                  {i + 1}
-                </span>
-                <div className="flex-1">
-                  <p style={{ fontSize: 14, fontWeight: 600, color: "#fff", fontFamily: "Inter, sans-serif" }}>{p.match}</p>
-                  <p style={{ fontSize: 12, color: "#6B6B80", fontFamily: "Inter, sans-serif" }}>
-                    Predicted: {p.prediction} · Actual: {p.result} · {p.date}
-                  </p>
-                </div>
-                <div className="text-right">
-                  <span className="font-semibold px-2 py-0.5 rounded-full"
-                    style={{ background: "rgba(0,178,169,0.2)", color: "#00B2A9", fontSize: 13, fontFamily: "Space Mono, monospace" }}>
-                    +{p.pts}{p.double ? " ⭐" : ""}
-                  </span>
-                  {p.double && <p style={{ fontSize: 10, color: "#FFD700", fontFamily: "Inter, sans-serif", marginTop: 2 }}>Double pts!</p>}
-                </div>
-              </div>
-            ))}
-          </div>
-        </motion.div>
+        {/* Category accuracy + best predictions appear here once enough
+            matches have been scored from your real predictions. */}
       </div>
     </div>
   );

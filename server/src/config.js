@@ -45,24 +45,24 @@ export const config = {
   redis: {
     url: process.env.REDIS_URL ?? "",
   },
-  google: {
-    clientId: process.env.GOOGLE_CLIENT_ID ?? "",
-    clientSecret: process.env.GOOGLE_CLIENT_SECRET ?? "",
-    callbackUrl:
-      process.env.GOOGLE_CALLBACK_URL ?? "http://localhost:4000/api/auth/google/callback",
-  },
   liveScores: {
     // TheSportsDB is a free/open sports data API. The "3" test key works for
-    // the free livescore/events endpoints without registration.
+    // the free season/event endpoints without registration.
     sportsDbKey: process.env.SPORTSDB_KEY ?? "3",
     baseUrl: "https://www.thesportsdb.com/api/v1/json",
     cacheTtlMs: Number(process.env.LIVE_CACHE_TTL_MS ?? 30000),
   },
-  scrape: {
-    sourceUrl:
-      process.env.SCRAPE_SOURCE_URL ??
-      "https://www.bbc.com/sport/football/world-cup/scores-fixtures",
-    cacheTtlMs: Number(process.env.SCRAPE_CACHE_TTL_MS ?? 60000),
-    userAgent: process.env.SCRAPE_USER_AGENT ?? "WC26PredictorBot/1.0",
+  worldcup: {
+    // TheSportsDB league id for the FIFA World Cup, and the season to load.
+    leagueId: process.env.WC_LEAGUE_ID ?? "4429",
+    season: process.env.WC_SEASON ?? "2026",
+  },
+  serpapi: {
+    // SerpAPI (Google Sports Results) for live scores + results.
+    key: process.env.SERPAPI_KEY ?? "",
+    keyBackup: process.env.SERPAPI_KEY_BACKUP ?? "",
+    query: process.env.SERPAPI_QUERY ?? "fifa world cup",
+    // gl=in localises Google sports times to India (IST).
+    gl: process.env.SERPAPI_GL ?? "in",
   },
 };

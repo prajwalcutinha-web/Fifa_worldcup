@@ -7,7 +7,6 @@ import { nanoid } from "nanoid";
 import { db } from "../db.js";
 import { isMongoConnected } from "../db/mongo.js";
 import { User, Prediction, League } from "../models/index.js";
-import { SEED_LEADERBOARD } from "../data/seed.js";
 
 const useMongo = () => isMongoConnected();
 
@@ -80,7 +79,7 @@ export const store = {
   },
 
   seedMembers() {
-    return SEED_LEADERBOARD;
+    return [];
   },
 
   users: {

@@ -3,7 +3,7 @@ import { z } from "zod";
 import { store } from "../store/index.js";
 import { validate } from "../middleware/validate.js";
 import { requireAuth } from "../middleware/auth.js";
-import { getFixtures } from "../services/scraper.js";
+import { getStoredFixtures } from "../services/serpapi.js";
 
 const router = Router();
 
@@ -31,7 +31,7 @@ router.get("/", async (req, res, next) => {
 router.post("/", validate(predictionSchema), async (req, res, next) => {
   try {
     const body = req.body;
-    const { fixtures } = await getFixtures();
+    const fixtures = await getStoredFixtures();
     const match = fixtures.find((m) => m.id === body.matchId);
     if (!match) return res.status(404).json({ error: "Match not found" });
 

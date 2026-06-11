@@ -7,7 +7,6 @@
 import { promises as fs } from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
-import { SEED_LEADERBOARD } from "./data/seed.js";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const DATA_DIR = path.join(__dirname, "..", "data");
@@ -24,12 +23,10 @@ const DEFAULT_STATE = {
       ownerId: "system",
       inviteCode: null,
       maxMembers: 1000000,
-      members: SEED_LEADERBOARD.map((s) => s.id),
+      members: [],
       createdAt: new Date().toISOString(),
     },
   ],
-  // Seed members exist only on the leaderboard, not as login-able users.
-  seedMembers: SEED_LEADERBOARD,
 };
 
 let state = null;
