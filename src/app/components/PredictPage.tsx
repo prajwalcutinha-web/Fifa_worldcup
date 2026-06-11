@@ -6,14 +6,15 @@ import { api, type Match } from "../../lib/api";
 type Page = "dashboard" | "fixtures" | "predict" | "leaderboard" | "leagues" | "analytics" | "profile";
 
 interface PredictPageProps {
-  onNavigate: (page: Page) => void;
+  onNavigate: (page: Page, matchId?: number) => void;
+  matchId?: number | null;
 }
 
 type SubmitState = "idle" | "loading" | "success";
 
-export function PredictPage({ onNavigate }: PredictPageProps) {
-  const [homeScore, setHomeScore] = useState(2);
-  const [awayScore, setAwayScore] = useState(1);
+export function PredictPage({ onNavigate, matchId }: PredictPageProps) {
+  const [homeScore, setHomeScore] = useState(0);
+  const [awayScore, setAwayScore] = useState(0);
   const [firstTeam, setFirstTeam] = useState<"home" | "away" | "none" | null>(null);
   const [playerSearch, setPlayerSearch] = useState("");
   const [selectedPlayer, setSelectedPlayer] = useState<string | null>(null);
@@ -23,17 +24,46 @@ export function PredictPage({ onNavigate }: PredictPageProps) {
   const [match, setMatch] = useState<Match | null>(null);
   const [error, setError] = useState<string | null>(null);
 
-  // Load fixtures and pick the first match the user can still predict.
+  // Load the selected match (by id) and prefill any existing prediction.
   useEffect(() => {
-    api.fixtures()
-      .then(({ fixtures }) => {
-        const predictable = fixtures.find((m) =>
-          ["no-prediction", "predicted", "double", "upcoming"].includes(m.state)
-        );
-        if (predictable) setMatch(predictable);
-      })
-      .catch(() => {});
-  }, []);
+    let active = true;
+    (async () => {
+      try {
+        const [{ fixtures }, { predictions }] = await Promise.all([
+          api.fixtures(),
+          api.myPredictions().catch(() => ({ predictions: [] as any[] })),
+        ]);
+        if (!active) return;
+        const chosen =
+          (typeof matchId === "number" && fixtures.find((m) => m.id === matchId)) ||
+          fixtures.find((m) => ["no-prediction", "predicted", "double", "upcoming"].includes(m.state)) ||
+          fixtures[0] ||
+          null;
+        setMatch(chosen ?? null);
+        if (chosen) {
+          const existing = predictions.find((p: any) => p.matchId === chosen.id);
+          if (existing) {
+            setHomeScore(existing.homeScore ?? 0);
+            setAwayScore(existing.awayScore ?? 0);
+            setFirstTeam(existing.firstTeam ?? null);
+            setSelectedPlayer(existing.firstPlayer || null);
+            setPlayerSearch(existing.firstPlayer || "");
+            setDoublePoints(Boolean(existing.double));
+          }
+        }
+      } catch {
+        /* ignore */
+      }
+    })();
+    return () => {
+      active = false;
+    };
+  }, [matchId]);
+
+  // A match is locked for editing once it is live or finished (SerpAPI marks a
+  // match "live" at kickoff), so predictions can't change during/after the game.
+  const locked =
+    !!match && (match.state === "live" || match.state === "finished" || match.state === "locked");
 
   // Display helpers (fall back to Argentina/France visuals before load).
   const homeName = match?.home ?? "Argentina";
@@ -47,6 +77,10 @@ export function PredictPage({ onNavigate }: PredictPageProps) {
   const totalPts = doublePoints ? basePts * 2 : basePts;
 
   const handleSubmit = async () => {
+    if (locked) {
+      setError("Predictions are locked — this match has kicked off.");
+      return;
+    }
     if (!firstTeam || !selectedPlayer) return;
     setError(null);
     setSubmitState("loading");
@@ -68,9 +102,9 @@ export function PredictPage({ onNavigate }: PredictPageProps) {
   };
 
   const ScoreButton = ({ dir, onClick }: { dir: "up" | "down"; onClick: () => void }) => (
-    <button onClick={onClick}
+    <button onClick={locked ? undefined : onClick} disabled={locked}
       className="w-10 h-10 rounded-full flex items-center justify-center transition-all hover:scale-110 active:scale-90"
-      style={{ background: "#252540", border: "1px solid #2A2A4E" }}>
+      style={{ background: "#252540", border: "1px solid #2A2A4E", opacity: locked ? 0.4 : 1, cursor: locked ? "not-allowed" : "pointer" }}>
       {dir === "up" ? <Plus size={18} color="#00B2A9" /> : <Minus size={18} color="#A0A0B0" />}
     </button>
   );
@@ -116,6 +150,18 @@ export function PredictPage({ onNavigate }: PredictPageProps) {
             </div>
           </div>
         </motion.div>
+
+        {locked && (
+          <div className="rounded-2xl p-4 mb-4 flex items-center gap-3" style={{ background: "rgba(228,0,43,0.1)", border: "1px solid #E4002B" }}>
+            <span style={{ fontSize: 20 }}>🔒</span>
+            <div>
+              <p style={{ fontSize: 14, fontWeight: 700, color: "#E4002B", fontFamily: "Montserrat, sans-serif" }}>Predictions locked</p>
+              <p style={{ fontSize: 12, color: "#A0A0B0", fontFamily: "Inter, sans-serif" }}>
+                This match has kicked off — scores and Double Points can no longer be changed.
+              </p>
+            </div>
+          </div>
+        )}
 
         {/* Score Picker */}
         <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }}
@@ -178,7 +224,7 @@ export function PredictPage({ onNavigate }: PredictPageProps) {
               { key: "away" as const, label: `${awayFlag} ${awayName}` },
               { key: "none" as const, label: "No Goal" },
             ]).map(({ key, label }) => (
-              <button key={key} onClick={() => setFirstTeam(key)}
+              <button key={key} onClick={() => !locked && setFirstTeam(key)} disabled={locked}
                 className="flex-1 py-3 rounded-xl text-sm font-semibold transition-all"
                 style={{
                   background: firstTeam === key ? "rgba(0,178,169,0.2)" : "#252540",
@@ -186,6 +232,8 @@ export function PredictPage({ onNavigate }: PredictPageProps) {
                   color: firstTeam === key ? "#00B2A9" : "#A0A0B0",
                   fontFamily: "Inter, sans-serif",
                   fontSize: 13,
+                  opacity: locked ? 0.5 : 1,
+                  cursor: locked ? "not-allowed" : "pointer",
                 }}>
                 {label}
               </button>
@@ -203,10 +251,11 @@ export function PredictPage({ onNavigate }: PredictPageProps) {
             <Search size={15} className="absolute left-3 top-1/2 -translate-y-1/2" color="#6B6B80" />
             <input
               value={playerSearch}
-              onChange={(e) => { setPlayerSearch(e.target.value); setSelectedPlayer(e.target.value.trim() || null); }}
+              onChange={(e) => { if (locked) return; setPlayerSearch(e.target.value); setSelectedPlayer(e.target.value.trim() || null); }}
+              disabled={locked}
               placeholder="Type the player's name..."
               className="w-full rounded-xl pl-9 pr-4 py-2.5 outline-none"
-              style={{ background: "#252540", border: "1px solid #2A2A4E", color: "#fff", fontSize: 14, fontFamily: "Inter, sans-serif" }}
+              style={{ background: "#252540", border: "1px solid #2A2A4E", color: "#fff", fontSize: 14, fontFamily: "Inter, sans-serif", opacity: locked ? 0.5 : 1 }}
             />
           </div>
           <p style={{ fontSize: 11, color: "#6B6B80", fontFamily: "Inter, sans-serif", marginTop: 8 }}>
@@ -228,9 +277,10 @@ export function PredictPage({ onNavigate }: PredictPageProps) {
               </p>
             </div>
             <button
-              onClick={() => setDoublePoints(!doublePoints)}
+              onClick={() => !locked && setDoublePoints(!doublePoints)}
+              disabled={locked}
               className="relative w-12 h-6 rounded-full transition-all"
-              style={{ background: doublePoints ? "#FFD700" : "#252540", border: "none" }}
+              style={{ background: doublePoints ? "#FFD700" : "#252540", border: "none", opacity: locked ? 0.5 : 1, cursor: locked ? "not-allowed" : "pointer" }}
             >
               <motion.div
                 animate={{ x: doublePoints ? 24 : 2 }}
@@ -294,21 +344,21 @@ export function PredictPage({ onNavigate }: PredictPageProps) {
         <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.35 }}>
           <button
             onClick={handleSubmit}
-            disabled={!firstTeam || !selectedPlayer || submitState !== "idle"}
+            disabled={locked || !firstTeam || !selectedPlayer || submitState !== "idle"}
             className="w-full rounded-2xl py-4 flex items-center justify-center gap-3 transition-all hover:opacity-90 active:scale-98 mb-3"
             style={{
-              background: !firstTeam || !selectedPlayer ? "#252540" : "#00B2A9",
-              color: !firstTeam || !selectedPlayer ? "#6B6B80" : "#fff",
+              background: locked || !firstTeam || !selectedPlayer ? "#252540" : "#00B2A9",
+              color: locked || !firstTeam || !selectedPlayer ? "#6B6B80" : "#fff",
               fontWeight: 700, fontSize: 16, fontFamily: "Inter, sans-serif",
-              cursor: !firstTeam || !selectedPlayer ? "not-allowed" : "pointer",
+              cursor: locked || !firstTeam || !selectedPlayer ? "not-allowed" : "pointer",
             }}
           >
-            {submitState === "idle" && "✓ Submit Prediction"}
-            {submitState === "loading" && <><Loader2 size={20} className="animate-spin" /> Submitting...</>}
-            {submitState === "success" && <><Check size={20} /> Prediction Saved! 🎉</>}
+            {locked ? "🔒 Locked" : submitState === "idle" && "✓ Submit Prediction"}
+            {!locked && submitState === "loading" && <><Loader2 size={20} className="animate-spin" /> Submitting...</>}
+            {!locked && submitState === "success" && <><Check size={20} /> Prediction Saved! 🎉</>}
           </button>
           <p style={{ fontSize: 12, color: "#FFA500", fontFamily: "Inter, sans-serif", textAlign: "center" }}>
-            ⏰ Locks in 2h 14m
+            {locked ? "🔒 This match has started — predictions are final." : "⏰ Predictions lock at kickoff."}
           </p>
           {error && (
             <p style={{ fontSize: 13, color: "#FF4444", fontFamily: "Inter, sans-serif", textAlign: "center", marginTop: 8 }}>

@@ -26,6 +26,7 @@ export default function App() {
   const [user, setUser] = useState<User | null>(null);
   const [page, setPage] = useState<Page>("dashboard");
   const [restoring, setRestoring] = useState(true);
+  const [predictMatchId, setPredictMatchId] = useState<number | null>(null);
 
   // Restore an existing session (httpOnly cookie) on first load.
   useEffect(() => {
@@ -68,7 +69,11 @@ export default function App() {
     setPage("dashboard");
   };
 
-  const navigate = (p: Page) => setPage(p);
+  const navigate = (p: Page, matchId?: number) => {
+    if (typeof matchId === "number") setPredictMatchId(matchId);
+    else if (p !== "predict") setPredictMatchId(null);
+    setPage(p);
+  };
 
   if (restoring) {
     return (
@@ -85,7 +90,7 @@ export default function App() {
   const pageComponents: Record<Page, React.ReactNode> = {
     dashboard: <Dashboard user={user} onNavigate={navigate} />,
     fixtures: <Fixtures onNavigate={navigate} />,
-    predict: <PredictPage onNavigate={navigate} />,
+    predict: <PredictPage onNavigate={navigate} matchId={predictMatchId} />,
     leaderboard: <Leaderboard />,
     leagues: <Leagues />,
     analytics: <Analytics />,

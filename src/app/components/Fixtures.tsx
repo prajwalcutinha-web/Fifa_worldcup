@@ -6,7 +6,7 @@ import { api, type Match as ApiMatch } from "../../lib/api";
 type Page = "dashboard" | "fixtures" | "predict" | "leaderboard" | "leagues" | "analytics" | "profile";
 
 interface FixturesProps {
-  onNavigate: (page: Page) => void;
+  onNavigate: (page: Page, matchId?: number) => void;
 }
 
 type MatchState = "no-prediction" | "predicted" | "double" | "locked" | "live" | "finished";
@@ -228,7 +228,7 @@ export function Fixtures({ onNavigate }: FixturesProps) {
                   </span>
                   {["no-prediction", "predicted", "double"].includes(m.state) && (
                     <button
-                      onClick={(e) => { e.stopPropagation(); onNavigate("predict"); }}
+                      onClick={(e) => { e.stopPropagation(); onNavigate("predict", m.id); }}
                       className="px-3 py-1 rounded-lg text-xs font-semibold"
                       style={{ background: m.state === "double" ? "rgba(255,215,0,0.2)" : "rgba(0,178,169,0.2)", color: m.state === "double" ? "#FFD700" : "#00B2A9", fontFamily: "Inter, sans-serif" }}>
                       {m.state === "no-prediction" ? "Predict →" : "Edit →"}

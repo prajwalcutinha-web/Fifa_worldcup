@@ -7,7 +7,7 @@ type Page = "dashboard" | "fixtures" | "predict" | "leaderboard" | "leagues" | "
 
 interface DashboardProps {
   user: { name: string; avatar: string; email: string };
-  onNavigate: (page: Page) => void;
+  onNavigate: (page: Page, matchId?: number) => void;
 }
 
 function useCountUp(target: number, duration = 1200) {
@@ -256,7 +256,7 @@ export function Dashboard({ user, onNavigate }: DashboardProps) {
                     initial={{ opacity: 0, x: -20 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: 0.25 + i * 0.08 }}
-                    onClick={() => onNavigate("predict")}
+                    onClick={() => onNavigate("predict", m.id)}
                     className="rounded-xl p-4 cursor-pointer hover:-translate-y-0.5 transition-transform"
                     style={{
                       background: "#1A1A2E",

@@ -35,16 +35,10 @@ router.post("/", validate(predictionSchema), async (req, res, next) => {
     const match = fixtures.find((m) => m.id === body.matchId);
     if (!match) return res.status(404).json({ error: "Match not found" });
 
-    // Server-side lock enforcement (spec: locked 10 min before kickoff; here we
-    // also block any match already live/finished/locked).
+    // Server-side lock: cannot predict once the match is live or finished.
+    // (SerpAPI flips state to "live" at kickoff and "finished" at full time.)
     if (["live", "finished", "locked"].includes(match.state)) {
-      return res.status(409).json({ error: "Predictions are locked for this match" });
-    }
-    if (match.kickoff) {
-      const lockAt = new Date(match.kickoff).getTime() - 10 * 60 * 1000;
-      if (Date.now() >= lockAt) {
-        return res.status(409).json({ error: "Predictions lock 10 minutes before kickoff" });
-      }
+      return res.status(409).json({ error: "Predictions are locked — this match has kicked off" });
     }
 
     // Only one Double Points selection per user.

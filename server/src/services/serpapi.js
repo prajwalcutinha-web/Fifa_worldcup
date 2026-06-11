@@ -41,6 +41,8 @@ function parseKickoff(dateText, timeText) {
       base.setUTCHours(hr, min, 0, 0);
     }
   }
+  // Times come back localised to IST (gl=in); convert IST -> UTC for storage.
+  if (config.serpapi.gl === "in") base = new Date(base.getTime() - 330 * 60 * 1000);
   return base.toISOString();
 }
 
