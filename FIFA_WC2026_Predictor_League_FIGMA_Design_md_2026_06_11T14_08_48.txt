@@ -1,0 +1,1374 @@
+FIFA World Cup 2026 Predictor League — Figma Design System & UI Prompt
+
+🎨 Design Brief
+
+Create a modern, playful, animated website/app design for the FIFA World Cup 2026 Predictor League — a fantasy football prediction platform. The design must be responsive (desktop + mobile) using a component-based system compatible with React Native rendering. Think FPL meets FIFA+ with World Cup 2026 energy.
+
+🌍 Brand Identity
+
+App Name: WC26 Predictor League
+
+Tagline: "Predict. Compete. Win."
+
+Personality: Sporty, Modern, Competitive, Fun, Premium
+
+Inspiration References:
+
+- FPL (Fantasy Premier League) — league/gameweek structure, points system UI
+
+- FIFA+ App — World Cup branding, match cards
+
+- Sorare — modern sports fantasy UI, card-based design
+
+- OneFootball — clean match cards, live score interface
+
+- Bet365/FanDuel — live score interfaces (without gambling elements)
+
+- Apple Sports — minimal, elegant sports data display
+
+🎨 Color System
+
+Primary Palette (FIFA World Cup 2026 Inspired):
+
+TokenHexUsage--primary#1B0A3EHeaders, primary buttons, nav backgrounds--secondary#E4002BCTAs, alerts, live indicators, FIFA red--accent-teal#00B2A9Success states, points earned, badges--accent-blue#002868Links, secondary actions, USA element--accent-green#006847Positive changes, rank up, Mexico element--gold#FFD700Trophy, achievements, double points, #1 rank--silver#C0C0C0#2 rank--bronze#CD7F32#3 rank--surface-dark#0D0D1ADark mode background--surface-card-dark#1A1A2ECard backgrounds (dark mode)--surface-elevated#252540Elevated cards, modals (dark mode)--surface-light#F5F5F7Light mode background--surface-card-light#FFFFFFCard backgrounds (light mode)--text-primary-dark#FFFFFFPrimary text (dark mode)--text-primary-light#1B0A3EPrimary text (light mode)--text-secondary#A0A0B0Secondary/muted text--text-tertiary#6B6B80Captions, timestamps--border-subtle#2A2A4ECard borders (dark mode)--error#FF4444Error states, rank down--warning#FFA500Warnings, deadline approaching
+
+TokenHexUsage
+
+Token
+
+Hex
+
+Usage
+
+--primary#1B0A3EHeaders, primary buttons, nav backgrounds
+
+--primary
+
+#1B0A3E
+
+Headers, primary buttons, nav backgrounds
+
+--secondary#E4002BCTAs, alerts, live indicators, FIFA red
+
+--secondary
+
+#E4002B
+
+CTAs, alerts, live indicators, FIFA red
+
+--accent-teal#00B2A9Success states, points earned, badges
+
+--accent-teal
+
+#00B2A9
+
+Success states, points earned, badges
+
+--accent-blue#002868Links, secondary actions, USA element
+
+--accent-blue
+
+#002868
+
+Links, secondary actions, USA element
+
+--accent-green#006847Positive changes, rank up, Mexico element
+
+--accent-green
+
+#006847
+
+Positive changes, rank up, Mexico element
+
+--gold#FFD700Trophy, achievements, double points, #1 rank
+
+--gold
+
+#FFD700
+
+Trophy, achievements, double points, #1 rank
+
+--silver#C0C0C0#2 rank
+
+--silver
+
+#C0C0C0
+
+#2 rank
+
+--bronze#CD7F32#3 rank
+
+--bronze
+
+#CD7F32
+
+#3 rank
+
+--surface-dark#0D0D1ADark mode background
+
+--surface-dark
+
+#0D0D1A
+
+Dark mode background
+
+--surface-card-dark#1A1A2ECard backgrounds (dark mode)
+
+--surface-card-dark
+
+#1A1A2E
+
+Card backgrounds (dark mode)
+
+--surface-elevated#252540Elevated cards, modals (dark mode)
+
+--surface-elevated
+
+#252540
+
+Elevated cards, modals (dark mode)
+
+--surface-light#F5F5F7Light mode background
+
+--surface-light
+
+#F5F5F7
+
+Light mode background
+
+--surface-card-light#FFFFFFCard backgrounds (light mode)
+
+--surface-card-light
+
+#FFFFFF
+
+Card backgrounds (light mode)
+
+--text-primary-dark#FFFFFFPrimary text (dark mode)
+
+--text-primary-dark
+
+#FFFFFF
+
+Primary text (dark mode)
+
+--text-primary-light#1B0A3EPrimary text (light mode)
+
+--text-primary-light
+
+#1B0A3E
+
+Primary text (light mode)
+
+--text-secondary#A0A0B0Secondary/muted text
+
+--text-secondary
+
+#A0A0B0
+
+Secondary/muted text
+
+--text-tertiary#6B6B80Captions, timestamps
+
+--text-tertiary
+
+#6B6B80
+
+Captions, timestamps
+
+--border-subtle#2A2A4ECard borders (dark mode)
+
+--border-subtle
+
+#2A2A4E
+
+Card borders (dark mode)
+
+--error#FF4444Error states, rank down
+
+--error
+
+#FF4444
+
+Error states, rank down
+
+--warning#FFA500Warnings, deadline approaching
+
+--warning
+
+#FFA500
+
+Warnings, deadline approaching
+
+Gradients:
+
+NameValueUsage--gradient-herolinear-gradient(135deg, #1B0A3E 0%, #002868 50%, #006847 100%)Hero sections, landing page--gradient-cardlinear-gradient(180deg, #1A1A2E 0%, #0D0D1A 100%)Card overlays--gradient-goldlinear-gradient(90deg, #FFD700 0%, #FFA500 100%)Double points, premium elements--gradient-livelinear-gradient(90deg, #E4002B 0%, #FF6B6B 100%)Live match indicators--gradient-tri-nationlinear-gradient(120deg, #002868 0%, #E4002B 33%, #006847 66%, #00B2A9 100%)Special accent borders
+
+NameValueUsage
+
+Name
+
+Value
+
+Usage
+
+--gradient-herolinear-gradient(135deg, #1B0A3E 0%, #002868 50%, #006847 100%)Hero sections, landing page
+
+--gradient-hero
+
+linear-gradient(135deg, #1B0A3E 0%, #002868 50%, #006847 100%)
+
+Hero sections, landing page
+
+--gradient-cardlinear-gradient(180deg, #1A1A2E 0%, #0D0D1A 100%)Card overlays
+
+--gradient-card
+
+linear-gradient(180deg, #1A1A2E 0%, #0D0D1A 100%)
+
+Card overlays
+
+--gradient-goldlinear-gradient(90deg, #FFD700 0%, #FFA500 100%)Double points, premium elements
+
+--gradient-gold
+
+linear-gradient(90deg, #FFD700 0%, #FFA500 100%)
+
+Double points, premium elements
+
+--gradient-livelinear-gradient(90deg, #E4002B 0%, #FF6B6B 100%)Live match indicators
+
+--gradient-live
+
+linear-gradient(90deg, #E4002B 0%, #FF6B6B 100%)
+
+Live match indicators
+
+--gradient-tri-nationlinear-gradient(120deg, #002868 0%, #E4002B 33%, #006847 66%, #00B2A9 100%)Special accent borders
+
+--gradient-tri-nation
+
+linear-gradient(120deg, #002868 0%, #E4002B 33%, #006847 66%, #00B2A9 100%)
+
+Special accent borders
+
+Tri-Nation Accent (USA 🇺🇸 + Mexico 🇲🇽 + Canada 🇨🇦):
+
+- Use subtle flag-color gradients as accent borders on featured cards
+
+- Animated color transitions between the three nation colors on hover/focus
+
+- Stadium silhouettes from all three host countries as background elements
+
+- Rotating host city names in footer/header ticker
+
+📐 Typography
+
+LevelFontWeightSize (Mobile)Size (Desktop)Line HeightDisplayMontserrat90032px56px1.1H1Montserrat80028px48px1.2H2Montserrat70024px36px1.2H3Inter60020px28px1.3H4Inter60018px22px1.3Body LargeInter40016px18px1.5BodyInter40014px16px1.5Body SmallInter40012px14px1.4CaptionInter50011px12px1.3ButtonInter60014px16px1.0Score DisplayOrbitron70032px48px1.0Rank NumberSpace Mono80024px36px1.0TimerSpace Mono60020px28px1.0
+
+LevelFontWeightSize (Mobile)Size (Desktop)Line Height
+
+Level
+
+Font
+
+Weight
+
+Size (Mobile)
+
+Size (Desktop)
+
+Line Height
+
+DisplayMontserrat90032px56px1.1
+
+Display
+
+Montserrat
+
+900
+
+32px
+
+56px
+
+1.1
+
+H1Montserrat80028px48px1.2
+
+H1
+
+Montserrat
+
+800
+
+28px
+
+48px
+
+1.2
+
+H2Montserrat70024px36px1.2
+
+H2
+
+Montserrat
+
+700
+
+24px
+
+36px
+
+1.2
+
+H3Inter60020px28px1.3
+
+H3
+
+Inter
+
+600
+
+20px
+
+28px
+
+1.3
+
+H4Inter60018px22px1.3
+
+H4
+
+Inter
+
+600
+
+18px
+
+22px
+
+1.3
+
+Body LargeInter40016px18px1.5
+
+Body Large
+
+Inter
+
+400
+
+16px
+
+18px
+
+1.5
+
+BodyInter40014px16px1.5
+
+Body
+
+Inter
+
+400
+
+14px
+
+16px
+
+1.5
+
+Body SmallInter40012px14px1.4
+
+Body Small
+
+Inter
+
+400
+
+12px
+
+14px
+
+1.4
+
+CaptionInter50011px12px1.3
+
+Caption
+
+Inter
+
+500
+
+11px
+
+12px
+
+1.3
+
+ButtonInter60014px16px1.0
+
+Button
+
+Inter
+
+600
+
+14px
+
+16px
+
+1.0
+
+Score DisplayOrbitron70032px48px1.0
+
+Score Display
+
+Orbitron
+
+700
+
+32px
+
+48px
+
+1.0
+
+Rank NumberSpace Mono80024px36px1.0
+
+Rank Number
+
+Space Mono
+
+800
+
+24px
+
+36px
+
+1.0
+
+TimerSpace Mono60020px28px1.0
+
+Timer
+
+Space Mono
+
+600
+
+20px
+
+28px
+
+1.0
+
+📱 Responsive Breakpoints
+
+BreakpointWidthLayoutColumnsMobile S320pxSingle column4Mobile M375pxSingle column4Mobile L428pxSingle column4Tablet768px2-column grid8Desktop1024px3-column grid12Desktop L1280px3-column grid12Wide1440px+Max-width container (1200px)12
+
+BreakpointWidthLayoutColumns
+
+Breakpoint
+
+Width
+
+Layout
+
+Columns
+
+Mobile S320pxSingle column4
+
+Mobile S
+
+320px
+
+Single column
+
+4
+
+Mobile M375pxSingle column4
+
+Mobile M
+
+375px
+
+Single column
+
+4
+
+Mobile L428pxSingle column4
+
+Mobile L
+
+428px
+
+Single column
+
+4
+
+Tablet768px2-column grid8
+
+Tablet
+
+768px
+
+2-column grid
+
+8
+
+Desktop1024px3-column grid12
+
+Desktop
+
+1024px
+
+3-column grid
+
+12
+
+Desktop L1280px3-column grid12
+
+Desktop L
+
+1280px
+
+3-column grid
+
+12
+
+Wide1440px+Max-width container (1200px)12
+
+Wide
+
+1440px+
+
+Max-width container (1200px)
+
+12
+
+Design Principle: Mobile-first. All components must work at 320px minimum width. Design mobile screens FIRST, then adapt to desktop.
+
+🧩 Component Library
+
+1. Navigation
+
+Bottom Tab Bar (Mobile)
+
+- 5 tabs: Home | Fixtures | Predict | Leaderboard | Profile
+
+- Height: 64px + safe area
+
+- Active state: Filled icon + accent-teal color + subtle glow underneath
+
+- Inactive: Outline icon + text-secondary color
+
+- Animated indicator dot/line slides between tabs (spring animation)
+
+- Haptic feedback on tap (design with pressed state)
+
+- Badge dots for notifications on relevant tabs
+
+Top Navigation Bar (Desktop)
+
+- Height: 72px
+
+- Sticky with glassmorphism effect (backdrop-filter: blur(20px))
+
+- Logo (left) — animated football icon + "WC26" wordmark
+
+- Nav links (center): Dashboard, Fixtures, Leaderboard, Leagues, Analytics
+
+- Right side: Notification bell (with count badge) + User avatar dropdown
+
+- Scroll-triggered: transparent → solid background transition
+
+- Active link: underline with accent-teal, bold weight
+
+Side Navigation (Desktop - Admin)
+
+- Width: 260px collapsed to 72px (icon only)
+
+- Dark surface background
+
+- Grouped sections with dividers
+
+- Hover: highlight row with subtle accent background
+
+2. Landing Page / Sign-In (THE FIRST SCREEN)
+
+Hero Section — Full Viewport
+
+- Background:Animated gradient mesh (deep purple → navy → teal, slowly morphing)Floating particle effect (small football icons, stars, hexagons)3D World Cup trophy rotating slowly (center-right on desktop, center on mobile)Stadium silhouette at bottom edge (subtle, 10% opacity)Subtle grid/pitch lines pattern overlay (5% opacity)
+
+- Content Layout (Mobile):┌─────────────────────────┐
+│                         │
+│      [Trophy Anim]      │
+│                         │
+│   WC26 PREDICTOR LEAGUE │
+│                         │
+│  "Predict. Compete. Win."│
+│                         │
+│  ┌───────────────────┐  │
+│  │ 🔵 Sign in with   │  │
+│  │    Google          │  │
+│  └───────────────────┘  │
+│                         │
+│  Join 10,000+ predictors│
+│                         │
+│  ─── Scroll for more ───│
+│                         │
+└─────────────────────────┘
+
+- Content Layout (Desktop):┌──────────────────────────────────────────────────┐
+│                                                  │
+│  WC26 PREDICTOR LEAGUE        [3D Trophy Anim]  │
+│  "Predict. Compete. Win."                        │
+│                                                  │
+│  ┌─────────────────────┐                         │
+│  │ 🔵 Sign in with Google │                      │
+│  └─────────────────────┘                         │
+│                                                  │
+│  [Feature 1] [Feature 2] [Feature 3]            │
+│   🎯 Predict   🏆 Compete   ⚡ Double            │
+│   Every Match   in Leagues   Your Points         │
+│                                                  │
+└──────────────────────────────────────────────────┘
+
+- Feature Highlight Cards (below fold):3 cards in a row (desktop) / stacked (mobile)Card 1: 🎯 "Predict Every Match" — score, first scorer, first teamCard 2: 🏆 "Compete in Leagues" — public & private leaguesCard 3: ⚡ "Double Your Points" — strategic double points selectionEach card: icon + title + short description + subtle illustrationStaggered fade-in on scroll (0ms, 150ms, 300ms delay)
+
+- Google Sign-In Button:Large (width: 280px mobile, 320px desktop)White background with Google "G" logoSubtle pulsing glow animation (gold → teal cycle)Hover: lift + shadow increasePress: scale down to 0.97
+
+Animations (Landing Page):
+
+- Page load sequence (staggered, 2.5s total):Background gradient starts animating (0ms)Trophy drops in with bounce (300ms)Logo fades in + scales up (600ms)Tagline types out letter by letter (900ms)Sign-in button fades up + starts pulsing (1500ms)Social proof text fades in (2000ms)
+
+- Scroll: Parallax on trophy (0.5x speed), cards stagger in
+
+- Idle: Particles float, trophy rotates, gradient shifts
+
+3. Dashboard (Home) — Post Sign-In
+
+Mobile Layout:
+
+┌─────────────────────────────┐
+│ 👋 Welcome, Prajwal          │
+│ Matchday 3 • 2 days left     │
+├─────────────────────────────┤
+│ ┌─────────────────────────┐ │
+│ │  🏆 YOUR STATS           │ │
+│ │  Rank: #47 (↑3)         │ │
+│ │  Points: 89              │ │
+│ │  Matchday: +14           │ │
+│ │  ████████░░ 67% accuracy │ │
+│ └─────────────────────────┘ │
+├─────────────────────────────┤
+│ ⏰ NEXT DEADLINE             │
+│ ┌─────────────────────────┐ │
+│ │  02 : 14 : 37 : 09      │ │
+│ │  Days  Hrs   Min   Sec  │ │
+│ │  Argentina vs France     │ │
+│ └─────────────────────────┘ │
+├─────────────────────────────┤
+│ ⚽ UPCOMING (Predict Now)    │
+│ ┌─────────────────────────┐ │
+│ │ 🇦🇷 ARG vs FRA 🇫🇷  →    │ │
+│ └─────────────────────────┘ │
+│ ┌─────────────────────────┐ │
+│ │ 🇧🇷 BRA vs GER 🇩🇪  →    │ │
+│ └─────────────────────────┘ │
+│ ┌─────────────────────────┐ │
+│ │ 🇪🇸 ESP vs JPN 🇯🇵  →    │ │
+│ └─────────────────────────┘ │
+├─────────────────────────────┤
+│ ⭐ DOUBLE POINTS              │
+│ ┌─────────────────────────┐ │
+│ │ ⚠️ Not selected yet!     │ │
+│ │ [Choose your match →]    │ │
+│ └─────────────────────────┘ │
+├─────────────────────────────┤
+│ 📊 MINI LEADERBOARD          │
+│ 1. John D.     142 pts      │
+│ 2. Sarah M.    138 pts      │
+│ 3. You         131 pts ←    │
+│ [View Full Leaderboard →]    │
+└─────────────────────────────┘
+
+Desktop Layout (3-column):
+
+┌────────────────────────────────────────────────────────────────┐
+│ Left Column (4/12)    │ Center Column (5/12)  │ Right (3/12)   │
+├───────────────────────┼───────────────────────┼────────────────┤
+│ Stats Card            │ Upcoming Fixtures     │ Mini League    │
+│ Countdown Timer       │ (scrollable list)     │ Leaderboard    │
+│ Double Points Status  │                       │ Activity Feed  │
+│ Accuracy Chart        │                       │ Notifications  │
+└───────────────────────┴───────────────────────┴────────────────┘
+
+Points Summary Card:
+
+- Glassmorphism card with gradient border (tri-nation gradient, 2px)
+
+- Large rank number: gold color if top 3, white otherwise
+
+- Animated counter for total points (counts up on load)
+
+- Matchday points badge (green pill with "+14")
+
+- Rank movement: green arrow ↑ with number, or red arrow ↓
+
+- Accuracy progress bar (gradient fill: red → yellow → green)
+
+- Subtle confetti burst animation when rank improves
+
+Countdown Timer:
+
+- Circular progress ring (accent-teal fill, depleting)
+
+- Large monospace numbers: DD : HH : MM : SS
+
+- Label below: "until predictions lock"
+
+- Color changes: teal (>24h) → warning/amber (<6h) → red pulsing (<1h)
+
+- Match name below timer
+
+4. Fixture Cards
+
+Standard Match Card (Upcoming):
+
+┌─────────────────────────────────────┐
+│ Group A • Matchday 1     ⭐ Double  │
+├─────────────────────────────────────┤
+│                                     │
+│  🇦🇷  Argentina    2 - 1    France  🇫🇷│
+│      (Your prediction)              │
+│                                     │
+│  ⏰ Jun 14, 2026 • 18:00 local      │
+│  📍 MetLife Stadium, New Jersey     │
+│                                     │
+├─────────────────────────────────────┤
+│  [✏️ Edit Prediction]    [Lock: 2h] │
+└─────────────────────────────────────┘
+
+Card States:
+
+StateVisual TreatmentNo PredictionDashed border, muted colors, "Predict Now →" CTA (accent-teal)PredictedSolid border, prediction shown, "Edit" link, lock countdownDouble PointsGold gradient border, ⭐ badge top-right, gold shimmerLockedGrey overlay (20%), 🔒 icon, "Locked" badge, no edit optionLiveRed pulsing border glow, "LIVE" badge (red pill, pulsing), live scoreFinishedCheckmark or X icon, points earned badge (green pill), final score
+
+StateVisual Treatment
+
+State
+
+Visual Treatment
+
+No PredictionDashed border, muted colors, "Predict Now →" CTA (accent-teal)
+
+No Prediction
+
+Dashed border, muted colors, "Predict Now →" CTA (accent-teal)
+
+PredictedSolid border, prediction shown, "Edit" link, lock countdown
+
+Predicted
+
+Solid border, prediction shown, "Edit" link, lock countdown
+
+Double PointsGold gradient border, ⭐ badge top-right, gold shimmer
+
+Double Points
+
+Gold gradient border, ⭐ badge top-right, gold shimmer
+
+LockedGrey overlay (20%), 🔒 icon, "Locked" badge, no edit option
+
+Locked
+
+Grey overlay (20%), 🔒 icon, "Locked" badge, no edit option
+
+LiveRed pulsing border glow, "LIVE" badge (red pill, pulsing), live score
+
+Live
+
+Red pulsing border glow, "LIVE" badge (red pill, pulsing), live score
+
+FinishedCheckmark or X icon, points earned badge (green pill), final score
+
+Finished
+
+Checkmark or X icon, points earned badge (green pill), final score
+
+Live Match Card (Special):
+
+- Animated red border glow (pulsing every 1.5s)
+
+- "LIVE" badge: red background, white text, pulsing dot
+
+- Current score in large Orbitron font
+
+- Match minute: "67'" in red
+
+- Goal scorer notification: slides in from right edge
+
+- Subtle red gradient overlay on card
+
+Finished Match Card:
+
+- Points earned badge: green pill "🎯 +14 pts" (or "+28 pts ⭐" if double)
+
+- Breakdown on expand: "Score ✓ +3 | Team ✓ +5 | Player ✓ +6"
+
+- Correct predictions: green checkmarks
+
+- Incorrect: red X marks
+
+- Your prediction vs actual result comparison
+
+5. Prediction Interface
+
+Full Prediction Form (Mobile — Bottom Sheet or Full Page):
+
+┌─────────────────────────────────────┐
+│ ← Back          PREDICT MATCH       │
+├─────────────────────────────────────┤
+│                                     │
+│  🇦🇷 Argentina  vs  France 🇫🇷       │
+│  Jun 14 • 18:00 • MetLife Stadium   │
+│                                     │
+├─────────────────────────────────────┤
+│                                     │
+│  FINAL SCORE                        │
+│                                     │
+│  🇦🇷 Argentina                       │
+│     [ - ]    2    [ + ]             │
+│                                     │
+│  🇫🇷 France                          │
+│     [ - ]    1    [ + ]             │
+│                                     │
+├─────────────────────────────────────┤
+│                                     │
+│  FIRST TEAM TO SCORE                │
+│                                     │
+│  [●] Argentina  [ ] France  [ ] None│
+│                                     │
+├─────────────────────────────────────┤
+│                                     │
+│  FIRST PLAYER TO SCORE              │
+│                                     │
+│  [🔍 Search player name...       ]  │
+│                                     │
+│  Popular picks:                     │
+│  • Messi (32%)  • Mbappé (28%)     │
+│  • Griezmann (12%)                  │
+│                                     │
+├─────────────────────────────────────┤
+│                                     │
+│  ⭐ DOUBLE POINTS MATCH             │
+│                                     │
+│  Make this your Double Points match │
+│  All points from this match x2      │
+│                                     │
+│  [═══════○─────] OFF                │
+│                                     │
+├─────────────────────────────────────┤
+│                                     │
+│  POINTS POTENTIAL                   │
+│  ┌─────────────────────────────┐   │
+│  │ Score: 3 + Team: 5 + Player: 6│  │
+│  │ Total: 14 pts                 │  │
+│  │ (x2 if Double = 28 pts)      │  │
+│  └─────────────────────────────┘   │
+│                                     │
+├─────────────────────────────────────┤
+│                                     │
+│  ┌─────────────────────────────┐   │
+│  │    ✓ SUBMIT PREDICTION       │   │
+│  └─────────────────────────────┘   │
+│                                     │
+│  ⏰ Locks in 2h 14m                 │
+│                                     │
+└─────────────────────────────────────┘
+
+Interaction Details:
+
+- Score +/- buttons: Large tap targets (44x44px min), number rolls/flips on change
+
+- Radio buttons: Custom circular with animated fill (accent-teal)
+
+- Player search: Autocomplete dropdown, shows player photo + team + position
+
+- Popular picks: Shows % of users who selected each player (social proof)
+
+- Double Points toggle: Custom switch, gold color when ON, star icon animates (rotate + shimmer)
+
+- Points potential: Auto-calculates as user fills in, animated number changes
+
+- Submit button: Full-width, accent-teal background, white text, loading spinner → checkmark animation on success
+
+- Lock countdown: Red text when < 1h, pulses when < 15min
+
+6. Leaderboard
+
+Table Design (Mobile):
+
+┌─────────────────────────────────────┐
+│ 🏆 LEADERBOARD                      │
+│ [Overall] [Matchday] [Weekly]       │
+├─────────────────────────────────────┤
+│ League: [Global ▼]                  │
+├─────────────────────────────────────┤
+│                                     │
+│  🥇 1  👤 John D.      142 pts ↑2  │
+│  ─────────────────────────────────  │
+│  🥈 2  👤 Sarah M.     138 pts ↓1  │
+│  ─────────────────────────────────  │
+│  🥉 3  👤 Alex K.      135 pts ↑5  │
+│  ─────────────────────────────────  │
+│  ★  4  👤 You          131 pts ↑1  │  ← highlighted row
+│  ─────────────────────────────────  │
+│  5     👤 Mike R.      128 pts ↓3  │
+│  ─────────────────────────────────  │
+│  6     👤 Lisa T.      125 pts ─   │
+│                                     │
+└─────────────────────────────────────┘
+
+Visual Details:
+
+- Top 3: Medal icons (🥇🥈🥉), slightly larger row height, gold/silver/bronze left border
+
+- Current user row: Highlighted with accent-teal background (10% opacity), ★ icon, bold text
+
+- Movement arrows: Green ↑ (rank improved), Red ↓ (rank dropped), Grey — (no change)
+
+- Movement number: Shows positions moved (e.g., "↑5" means moved up 5 places)
+
+- Avatar: Circular, 32px, from Google profile
+
+- Points: Bold, monospace font (Space Mono)
+
+- Tab switcher: Pill-style tabs with animated indicator sliding between them
+
+- League selector: Dropdown with league icons
+
+Podium View (Top 3 — Optional Hero Section):
+
+- 3D-style podium illustration
+
+- #1 center (tallest), #2 left, #3 right
+
+- User avatars on podium with names below
+
+- Animated trophy icon above #1
+
+- Confetti particles on first load
+
+- Points displayed below each position
+
+- Tap avatar to see their predictions
+
+Expandable Row (on tap):
+
+- Slides down to reveal:Correct Scores: 5Correct First Team: 8Correct First Player: 3Double Points Successes: 2/3Prediction accuracy: 72%
+
+7. League Cards
+
+Public League Card:
+
+┌─────────────────────────────────────┐
+│ 🏆 Premier Predictors               │
+│                                     │
+│ 👥 234 members • 🌍 Public          │
+│ Created by @admin                   │
+│                                     │
+│ Top scorer: John D. (142 pts)       │
+│                                     │
+│ ┌─────────────────────────────┐     │
+│ │      Join League →           │     │
+│ └─────────────────────────────┘     │
+└─────────────────────────────────────┘
+
+Private League Card:
+
+┌─────────────────────────────────────┐
+│ 🔒 Office Champions                 │
+│                                     │
+│ 👥 12/20 members • 🔐 Private       │
+│                                     │
+│ Enter invite code:                  │
+│ ┌─────────────────────────────┐     │
+│ │ [_ _ _ _ _ _ _ _]           │     │
+│ └─────────────────────────────┘     │
+│                                     │
+│ ┌─────────────────────────────┐     │
+│ │      Join with Code →        │     │
+│ └─────────────────────────────┘     │
+│                                     │
+│ — or —                              │
+│ 🔗 Have an invite link? Paste here  │
+└─────────────────────────────────────┘
+
+Create League Form:
+
+- League name input
+
+- Type toggle: Public / Private
+
+- Max members slider (10-500)
+
+- Auto-generated invite code (copyable)
+
+- Share invite link button
+
+- League avatar/icon selector
+
+8. Notification Cards
+
+Notification Types & Visual Treatment:
+
+TypeIconColorExampleDeadline reminder⏰Amber/Warning"Argentina vs France locks in 1 hour!"Prediction result🎯Green (correct) / Red (wrong)"You scored 14 pts on ARG vs FRA!"Leaderboard update📊Accent-blue"Matchday 3 leaderboard is live!"Rank change📈/📉Green/Red"You moved up 3 places to #47!"Achievement🏆Gold"Perfect Matchday! All predictions correct!"Double Points⭐Gold"Don't forget to pick your Double Points match!"League invite👥Purple"John invited you to 'Office Champions'"
+
+TypeIconColorExample
+
+Type
+
+Icon
+
+Color
+
+Example
+
+Deadline reminder⏰Amber/Warning"Argentina vs France locks in 1 hour!"
+
+Deadline reminder
+
+⏰
+
+Amber/Warning
+
+"Argentina vs France locks in 1 hour!"
+
+Prediction result🎯Green (correct) / Red (wrong)"You scored 14 pts on ARG vs FRA!"
+
+Prediction result
+
+🎯
+
+Green (correct) / Red (wrong)
+
+"You scored 14 pts on ARG vs FRA!"
+
+Leaderboard update📊Accent-blue"Matchday 3 leaderboard is live!"
+
+Leaderboard update
+
+📊
+
+Accent-blue
+
+"Matchday 3 leaderboard is live!"
+
+Rank change📈/📉Green/Red"You moved up 3 places to #47!"
+
+Rank change
+
+📈/📉
+
+Green/Red
+
+"You moved up 3 places to #47!"
+
+Achievement🏆Gold"Perfect Matchday! All predictions correct!"
+
+Achievement
+
+🏆
+
+Gold
+
+"Perfect Matchday! All predictions correct!"
+
+Double Points⭐Gold"Don't forget to pick your Double Points match!"
+
+Double Points
+
+⭐
+
+Gold
+
+"Don't forget to pick your Double Points match!"
+
+League invite👥Purple"John invited you to 'Office Champions'"
+
+League invite
+
+👥
+
+Purple
+
+"John invited you to 'Office Champions'"
+
+Card Design:
+
+- Left: colored icon circle (40px)
+
+- Center: title (bold) + description + timestamp
+
+- Right: unread dot (accent-teal, 8px) or action button
+
+- Swipe left to dismiss (mobile)
+
+- Slide-in animation from right on arrival
+
+9. Analytics / Stats Page
+
+Sections:
+
+- Prediction Accuracy — Donut chart (correct vs incorrect, by type)
+
+- Points Over Time — Line chart (points per matchday)
+
+- Streak Indicator — 🔥 flame icon with number (e.g., "🔥 3 correct in a row")
+
+- Comparison — Your accuracy vs league average (bar chart)
+
+- Best Predictions — List of highest-scoring predictions
+
+- Category Breakdown — Score/Team/Player accuracy percentages
+
+Visual Style:
+
+- Minimal, clean charts with smooth curves
+
+- Animated on scroll into view (draw-in effect)
+
+- Color-coded: Score predictions (teal), Team (blue), Player (gold)
+
+- Dark mode friendly (no white backgrounds on charts)
+
+✨ Animation Specifications
+
+Page Transitions:
+
+- Between pages: Shared element transitions (fixture card → prediction page)
+
+- Modal/Sheet: Slide up from bottom with spring physics (mobile)
+
+- Tab switch: Cross-fade with 200ms duration
+
+- Navigation: Push from right (forward), push from left (back)
+
+Micro-interactions:
+
+ElementAnimationDurationEasingTriggerButton pressScale 1.0 → 0.95 → 1.0150msease-outonPressIn/OutCard hover/pressTranslateY -4px + shadow increase200mseasehover/pressScore +/-Number flip (rotate X)300msspring(damping:15)on changeRank changeRow slides up/down + color flash500msease-in-outon data updatePoints earnedCount up from 0 + confetti burst1000mslinear (count)on revealLive pulseScale 1.0 → 1.05 → 1.0 + opacity1500msease-in-outloopTab indicatorSlide X to new position250msspring(damping:20)on tab changeToast notificationSlide in from top + fade300msspringon triggerDouble Points starRotate 360° + gold shimmer600mseaseon toggle ONCountdown tickSubtle scale bounce on seconds100mseaseevery secondPrediction submitButton → spinner → checkmark1500mssequentialon submitCard expandHeight animate + content fade in300msease-outon tapPull to refreshCustom football spinning animationvariablespringon pull
+
+ElementAnimationDurationEasingTrigger
+
+Element
+
+Animation
+
+Duration
+
+Easing
+
+Trigger
+
+Button pressScale 1.0 → 0.95 → 1.0150msease-outonPressIn/Out
+
+Button press
+
+Scale 1.0 → 0.95 → 1.0
+
+150ms
+
+ease-out
+
+onPressIn/Out
+
+Card hover/pressTranslateY -4px + shadow increase200mseasehover/press
+
+Card hover/press
+
+TranslateY -4px + shadow increase
+
+200ms
+
+ease
+
+hover/press
+
+Score +/-Number flip (rotate X)300msspring(damping:15)on change
+
+Score +/-
+
+Number flip (rotate X)
+
+300ms
+
+spring(damping:15)
+
+on change
+
+Rank changeRow slides up/down + color flash500msease-in-outon data update
+
+Rank change
+
+Row slides up/down + color flash
+
+500ms
+
+ease-in-out
+
+on data update
+
+Points earnedCount up from 0 + confetti burst1000mslinear (count)on reveal
+
+Points earned
+
+Count up from 0 + confetti burst
+
+1000ms
+
+linear (count)
+
+on reveal
+
+Live pulseScale 1.0 → 1.05 → 1.0 + opacity1500msease-in-outloop
+
+Live pulse
+
+Scale 1.0 → 1.05 → 1.0 + opacity
+
+1500ms
+
+ease-in-out
+
+loop
+
+Tab indicatorSlide X to new position250msspring(damping:20)on tab change
+
+Tab indicator
+
+Slide X to new position
+
+250ms
+
+spring(damping:20)
+
+on tab change
+
+Toast notificationSlide in from top + fade300msspringon trigger
+
+Toast notification
+
+Slide in from top + fade
+
+300ms
+
+spring
+
+on trigger
+
+Double Points starRotate 360° + gold shimmer600mseaseon toggle ON
+
+Double Points star
+
+Rotate 360° + gold shimmer
+
+600ms
+
+ease
+
+on toggle ON
+
+Countdown tickSubtle scale bounce on seconds100mseaseevery second
+
+Countdown tick
+
+Subtle scale bounce on seconds
+
+100ms
+
+ease
+
+every second
+
+Prediction submitButton → spinner → checkmark1500mssequentialon submit
+
+Prediction submit
+
+Button → spinner → checkmark
+
+1500ms
+
+sequential
+
+on submit
+
+Card expandHeight animate + content fade in300msease-outon tap
+
+Card expand
+
+Height animate + content fade in
+
+300ms
+
+ease-out
+
+on tap
+
+Pull to refreshCustom football spinning animationvariablespringon pull
+
+Pull to refresh
+
+Custom football spinning animation
+
+variable
+
+spring
+
+on pull
+
+Lottie Animations Needed:
+
+- ⚽ Football spinning — loading states, pull-to-refresh
+
+- 🏆 Trophy celebration — achievement unlocked, #1 rank
+
+- 🎊 Confetti burst — rank improvement, correct prediction
+
+- ⏰ Countdown ring — timer depleting
+
+- ⚡ Goal celebration — when live goal is scored (flash + particles)
+
+- 🔒 Lock closing — prediction locked animation
+
+- ⭐ Star shimmer — double points active
+
+- 🏅 Podium reveal — leaderboard top 3 entrance
+
+- ✓ Success checkmark — prediction submitted
+
+- 🔥 Flame loop — prediction streak indicator
+
+🌙 Theme Modes
+
+Dark Mode (Default — Recommended):
+
+- Background: #0D0D1A (near black with blue tint)
+
+- Cards: #1A1A2E with 1px border #2A2A4E
+
+- Text: #FFFFFF (primary) / #A0A0B0 (secondary)
+
+- Accent elements have subtle glow/neon effect
+
+- Shadows: colored (e.g., teal glow under active elements)
+
+- Charts: bright colors on dark backgrounds
+
+Light Mode:
+
+- Background: #F5F5F7 (warm grey)
+
+- Cards: #FFFFFF with subtle shadow (0 2px 8px rgba(0,0,0,0.08))
+
+- Text: #1B0A3E (primary) / `#

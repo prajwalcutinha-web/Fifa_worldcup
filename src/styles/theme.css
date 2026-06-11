@@ -1,0 +1,292 @@
+@custom-variant dark (&:is(.dark *));
+
+:root {
+  --font-size: 16px;
+
+  /* WC26 Brand Colors */
+  --wc-primary: #1B0A3E;
+  --wc-secondary: #E4002B;
+  --wc-teal: #00B2A9;
+  --wc-blue: #002868;
+  --wc-green: #006847;
+  --wc-gold: #FFD700;
+  --wc-silver: #C0C0C0;
+  --wc-bronze: #CD7F32;
+  --wc-error: #FF4444;
+  --wc-warning: #FFA500;
+
+  /* Theme tokens — light mode (unused, app is dark-first) */
+  --background: #0D0D1A;
+  --foreground: #FFFFFF;
+  --card: #1A1A2E;
+  --card-foreground: #FFFFFF;
+  --popover: #1A1A2E;
+  --popover-foreground: #FFFFFF;
+  --primary: #00B2A9;
+  --primary-foreground: #FFFFFF;
+  --secondary: #252540;
+  --secondary-foreground: #FFFFFF;
+  --muted: #252540;
+  --muted-foreground: #A0A0B0;
+  --accent: #FFD700;
+  --accent-foreground: #0D0D1A;
+  --destructive: #FF4444;
+  --destructive-foreground: #FFFFFF;
+  --border: #2A2A4E;
+  --input: #252540;
+  --input-background: #252540;
+  --switch-background: #2A2A4E;
+  --font-weight-medium: 500;
+  --font-weight-normal: 400;
+  --ring: #00B2A9;
+  --radius: 0.75rem;
+
+  --chart-1: #00B2A9;
+  --chart-2: #002868;
+  --chart-3: #FFD700;
+  --chart-4: #E4002B;
+  --chart-5: #006847;
+
+  --sidebar: #1A1A2E;
+  --sidebar-foreground: #FFFFFF;
+  --sidebar-primary: #00B2A9;
+  --sidebar-primary-foreground: #FFFFFF;
+  --sidebar-accent: #252540;
+  --sidebar-accent-foreground: #FFFFFF;
+  --sidebar-border: #2A2A4E;
+  --sidebar-ring: #00B2A9;
+}
+
+.dark {
+  --background: #0D0D1A;
+  --foreground: #FFFFFF;
+  --card: #1A1A2E;
+  --card-foreground: #FFFFFF;
+  --popover: #1A1A2E;
+  --popover-foreground: #FFFFFF;
+  --primary: #00B2A9;
+  --primary-foreground: #FFFFFF;
+  --secondary: #252540;
+  --secondary-foreground: #FFFFFF;
+  --muted: #252540;
+  --muted-foreground: #A0A0B0;
+  --accent: #FFD700;
+  --accent-foreground: #0D0D1A;
+  --destructive: #FF4444;
+  --destructive-foreground: #FFFFFF;
+  --border: #2A2A4E;
+  --input: #252540;
+  --input-background: #252540;
+  --switch-background: #2A2A4E;
+  --font-weight-medium: 500;
+  --font-weight-normal: 400;
+  --ring: #00B2A9;
+  --chart-1: #00B2A9;
+  --chart-2: #002868;
+  --chart-3: #FFD700;
+  --chart-4: #E4002B;
+  --chart-5: #006847;
+  --sidebar: #1A1A2E;
+  --sidebar-foreground: #FFFFFF;
+  --sidebar-primary: #00B2A9;
+  --sidebar-primary-foreground: #FFFFFF;
+  --sidebar-accent: #252540;
+  --sidebar-accent-foreground: #FFFFFF;
+  --sidebar-border: #2A2A4E;
+  --sidebar-ring: #00B2A9;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-input-background: var(--input-background);
+  --color-switch-background: var(--switch-background);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-family: 'Inter', sans-serif;
+  }
+
+  html {
+    font-size: var(--font-size);
+  }
+
+  h1, h2 {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 800;
+  }
+
+  h3, h4 {
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+  }
+
+  /* Hide scrollbars by default */
+  ::-webkit-scrollbar {
+    width: 4px;
+    height: 4px;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #2A2A4E;
+    border-radius: 2px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #00B2A9;
+  }
+}
+
+/* Tri-nation gradient border utility */
+.tri-nation-border {
+  background: linear-gradient(120deg, #002868 0%, #E4002B 33%, #006847 66%, #00B2A9 100%);
+}
+
+/* Gold shimmer animation */
+@keyframes goldShimmer {
+  0% { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+
+.gold-shimmer {
+  background: linear-gradient(90deg, #FFD700, #FFA500, #FFD700, #FFF3A0, #FFD700);
+  background-size: 200% auto;
+  animation: goldShimmer 2s linear infinite;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Live pulse animation */
+@keyframes livePulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(228, 0, 43, 0.7); }
+  50% { box-shadow: 0 0 0 8px rgba(228, 0, 43, 0); }
+}
+
+.live-pulse {
+  animation: livePulse 1.5s ease-in-out infinite;
+}
+
+/* Gradient hero */
+.gradient-hero {
+  background: linear-gradient(135deg, #1B0A3E 0%, #002868 50%, #006847 100%);
+}
+
+/* Gradient gold */
+.gradient-gold {
+  background: linear-gradient(90deg, #FFD700 0%, #FFA500 100%);
+}
+
+/* Animated mesh background */
+@keyframes meshShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.animated-mesh {
+  background: linear-gradient(-45deg, #1B0A3E, #002868, #0D0D1A, #006847, #1B0A3E, #00B2A9);
+  background-size: 400% 400%;
+  animation: meshShift 12s ease infinite;
+}
+
+/* Floating particles */
+@keyframes float1 {
+  0%, 100% { transform: translateY(0px) rotate(0deg); opacity: 0.6; }
+  50% { transform: translateY(-30px) rotate(180deg); opacity: 1; }
+}
+@keyframes float2 {
+  0%, 100% { transform: translateY(0px) rotate(0deg); opacity: 0.4; }
+  33% { transform: translateY(-20px) rotate(120deg); }
+  66% { transform: translateY(10px) rotate(240deg); opacity: 0.8; }
+}
+@keyframes float3 {
+  0%, 100% { transform: translateY(0px) translateX(0px); opacity: 0.3; }
+  50% { transform: translateY(-40px) translateX(20px); opacity: 0.7; }
+}
+
+.particle-1 { animation: float1 6s ease-in-out infinite; }
+.particle-2 { animation: float2 8s ease-in-out infinite; }
+.particle-3 { animation: float3 10s ease-in-out infinite; }
+
+/* Typewriter cursor */
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+.cursor-blink { animation: blink 1s step-end infinite; }
+
+/* Count up */
+@keyframes countUp {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Countdown tick bounce */
+@keyframes tickBounce {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.08); }
+  100% { transform: scale(1); }
+}
+.tick-bounce { animation: tickBounce 0.1s ease; }
+
+/* Trophy float */
+@keyframes trophyFloat {
+  0%, 100% { transform: translateY(0px) rotate(-2deg); }
+  50% { transform: translateY(-15px) rotate(2deg); }
+}
+.trophy-float { animation: trophyFloat 4s ease-in-out infinite; }
+
+/* Glow pulse for sign-in button */
+@keyframes glowPulse {
+  0%, 100% { box-shadow: 0 0 10px 2px rgba(0, 178, 169, 0.3); }
+  50% { box-shadow: 0 0 25px 8px rgba(255, 215, 0, 0.4); }
+}
+.glow-pulse { animation: glowPulse 2.5s ease-in-out infinite; }
+
+/* Rank number font */
+.font-rank { font-family: 'Space Mono', monospace; }
+.font-score { font-family: 'Orbitron', sans-serif; }
+.font-display, .font-heading { font-family: 'Montserrat', sans-serif; }
+.font-mono-data { font-family: 'Space Mono', monospace; }
