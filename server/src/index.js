@@ -5,6 +5,9 @@ import compression from "compression";
 import cookieParser from "cookie-parser";
 import morgan from "morgan";
 import rateLimit from "express-rate-limit";
+import path from "node:path";
+import { fileURLToPath } from "node:url";
+import { existsSync } from "node:fs";
 
 import { config } from "./config.js";
 import { connectMongo } from "./db/mongo.js";
@@ -19,6 +22,8 @@ import leaderboardRoutes from "./routes/leaderboard.js";
 import leagueRoutes from "./routes/leagues.js";
 import analyticsRoutes from "./routes/analytics.js";
 
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+
 // Initialise infrastructure (each degrades gracefully if not configured).
 initCache();
 await connectMongo();
@@ -32,9 +37,12 @@ app.set("trust proxy", 1);
 // --- Security headers ---
 app.use(
   helmet({
-    // The API serves JSON only; a strict default CSP is fine. The frontend
-    // (separate origin) sets its own CSP.
+    // The app serves a React SPA that relies on inline styles and loads avatars
+    // from external hosts, so the strict default CSP is disabled here. Re-enable
+    // with a tailored policy (script/style/img-src allowlists) before hardening.
+    contentSecurityPolicy: false,
     crossOriginResourcePolicy: { policy: "cross-origin" },
+    crossOriginEmbedderPolicy: false,
   })
 );
 
@@ -81,6 +89,25 @@ app.use("/api/predictions", predictionRoutes);
 app.use("/api/leaderboard", leaderboardRoutes);
 app.use("/api/leagues", leagueRoutes);
 app.use("/api/analytics", analyticsRoutes);
+
+// ---- Serve the built frontend (single-origin deployment) ----
+// In production the Express app also serves the compiled React app, so the whole
+// site runs as one origin (no CORS/cookie cross-site issues). We check a few
+// candidate locations so it works regardless of the exact deploy layout.
+const clientCandidates = [
+  path.resolve(__dirname, "../../dist"), // local dev: server/src -> repo/dist
+  path.resolve(__dirname, "../dist"),    // cPanel: app/src -> app/dist
+  path.resolve(process.cwd(), "dist"),   // app root cwd -> ./dist
+];
+const clientDir = clientCandidates.find((p) => existsSync(p));
+if (clientDir) {
+  app.use(express.static(clientDir));
+  // SPA fallback: anything that isn't an /api route returns index.html.
+  app.get(/^\/(?!api\/).*/, (req, res) => {
+    res.sendFile(path.join(clientDir, "index.html"));
+  });
+  console.log(`[static] serving frontend from ${clientDir}`);
+}
 
 app.use(notFound);
 app.use(errorHandler);
